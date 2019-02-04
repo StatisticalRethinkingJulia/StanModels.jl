@@ -1,5 +1,5 @@
 
-using StatisticalRethinking
+using SRStan
 using CmdStan, StanMCMCChain
 
 ProjDir = rel_path_s("..", "scripts", "12")

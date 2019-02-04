@@ -1,6 +1,6 @@
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
-using StatisticalRethinking
+using SRStan
 using CmdStan, StanMCMCChain
 gr(size=(500,500));
 

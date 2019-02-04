@@ -1,4 +1,4 @@
-using StatisticalRethinking
+using SRStan
 using Literate
 using Documenter
 
@@ -49,11 +49,11 @@ append!(page_list, [Pair("Functions", "index.md")])
 
 makedocs(root = DOC_ROOT,
     modules = Module[],
-    sitename = "StatisticalRethinking.jl",
+    sitename = "SRStan.jl",
     authors = "Rob Goedman, Richard Torkar, and contributors.",
     pages = page_list
 )
 
 deploydocs(root = DOC_ROOT,
-    repo = "github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl.git",
+    repo = "github.com/StatisticalRethinkingJulia/SRStan.jl.git",
  )

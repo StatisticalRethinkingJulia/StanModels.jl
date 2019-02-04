@@ -1,4 +1,4 @@
-module StatisticalRethinking
+module SRStan
 
 using Reexport 
 
@@ -15,7 +15,7 @@ const src_path = @__DIR__
 
 # rel_path_s
 
-Relative path using the StatisticalRethinking src/ directory. Copied from
+Relative path using the SRStan src/ directory. Copied from
 [DynamicHMCExamples.jl](https://github.com/tpapp/DynamicHMCExamples.jl)
 
 ### Example to get access to the data subdirectory

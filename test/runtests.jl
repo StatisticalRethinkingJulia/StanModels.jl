@@ -1,4 +1,4 @@
-using StatisticalRethinking
+using SRStan
 using Test
 
 println("Tests are executed in docs job.")

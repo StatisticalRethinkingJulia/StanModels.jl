@@ -1,5 +1,5 @@
 ```@meta
-CurrentModule = StatisticalRethinking
+CurrentModule = SRStan
 ```
 
 ## `maximum_a_posteriori`
