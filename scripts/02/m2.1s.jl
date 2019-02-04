@@ -10,7 +10,7 @@ cd(ProjDir)
 
 # Define the Stan language model
 
-binomialstanmodel = "
+m_2_1 = "
 // Inferring a Rate
 data {
   int N;
@@ -33,7 +33,7 @@ model {
 
 # Define the Stanmodel and set the output format to :mcmcchain.
 
-stanmodel = Stanmodel(name="binomial", monitors = ["theta"], model=binomialstanmodel,
+stanmodel = Stanmodel(name="m_2_1", monitors = ["theta"], model=m_2_1,
   output_format=:mcmcchain);
 
 # Use 16 observations

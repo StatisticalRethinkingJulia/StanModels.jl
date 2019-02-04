@@ -27,7 +27,7 @@ rethinking_data = "
 5 California     8.0 -0.26698927           0.5998567
 "
 
-m5_3_model = "
+m5_3 = "
 data {
   int N;
   vector[N] divorce;
@@ -50,9 +50,9 @@ model {
 }
 ";
 
-stanmodel = Stanmodel(name="m5_3_model",
+stanmodel = Stanmodel(name="m5_3",
 monitors = ["a", "bA", "bM", "sigma", "Divorce"],
- model=m5_3_model, output_format=:mcmcchain);
+ model=m5_3, output_format=:mcmcchain);
 
 m5_3_data = Dict("N" => size(df, 1), "divorce" => df[:Divorce],
     "marriage_z" => df[:Marriage_s], "median_age_z" => df[:MedianAgeMarriage_s]);

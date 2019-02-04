@@ -20,7 +20,7 @@ first(df, 5)
 
 # Define the Stan language model
 
-ad_model = "
+ad = "
 data {
  int < lower = 1 > N; // Sample size
  vector[N] divorce; // Predictor
@@ -47,7 +47,7 @@ model {
 # Define the Stanmodel and set the output format to :mcmcchain.
 
 stanmodel = Stanmodel(name="MedianAgeDivorce", monitors = ["a", "bA", "sigma"],
-  model=ad_model, output_format=:mcmcchain);
+  model=ad, output_format=:mcmcchain);
 
 # Input data for cmdstan
 

@@ -43,7 +43,7 @@ model{
 
 # Model in logpdf form (written by Scott Spencer)
 
-m13.2_model = "
+m13.2 = "
   data {
     int N;
     int<lower=0, upper=1> male[N];
@@ -105,7 +105,7 @@ model{
 
 # Varying intercept logpdf model (written by Scott Spencer)
 
-m13.2_model = "
+m13.2 = "
   data {
     int N;
     int n[N];

@@ -22,7 +22,7 @@ df[:male] = [(df[:gender][i] == "male" ? 1 : 0) for i in 1:size(df, 1)];
 df[:dept_id] = [Int(df[:dept][i][1])-64 for i in 1:size(df, 1)];
 first(df, 5)
 
-m13_2_model = "
+m13_2 = "
   data{
       int N;
       int N_depts;
@@ -53,7 +53,7 @@ m13_2_model = "
 
 # Define the Stanmodel and set the output format to :mcmcchain.
 
-stanmodel = Stanmodel(name="m13_2_model", model=m13_2_model,
+stanmodel = Stanmodel(name="m13_2", model=m13_2,
 monitors=["a", "bm", "sigma_dept", "a_dept.1", "a_dept.2", "a_dept.3", 
 "a_dept.4", "a_dept.5", "a_dept.6"],
 output_format=:mcmcchain);

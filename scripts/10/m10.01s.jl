@@ -18,7 +18,7 @@ first(df, 5)
 
 # Define the Stan language model
 
-m_10_01_model = "
+m_10_01 = "
 data{
     int N;
     int pulled_left[N];
@@ -35,9 +35,9 @@ model{
 
 # Define the Stanmodel and set the output format to :mcmcchain.
 
-stanmodel = Stanmodel(name="m_10_01_model", 
+stanmodel = Stanmodel(name="m_10_01", 
 monitors = ["a"],
-model=m_10_01_model, output_format=:mcmcchain);
+model=m_10_01, output_format=:mcmcchain);
 
 # Input data for cmdstan
 

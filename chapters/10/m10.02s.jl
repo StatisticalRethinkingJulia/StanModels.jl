@@ -10,7 +10,7 @@ df = convert(DataFrame, d);
 
 first(df, 5)
 
-m_10_02_model = "
+m_10_02 = "
 data{
     int N;
     int pulled_left[N];
@@ -32,9 +32,9 @@ model{
 }
 ";
 
-stanmodel = Stanmodel(name="m_10_02_model",
+stanmodel = Stanmodel(name="m_10_02",
 monitors = ["a", "bp"],
-model=m_10_02_model, output_format=:mcmcchain);
+model=m_10_02, output_format=:mcmcchain);
 
 m_10_02_data = Dict("N" => size(df, 1),
 "pulled_left" => df[:pulled_left], "prosoc_left" => df[:prosoc_left]);

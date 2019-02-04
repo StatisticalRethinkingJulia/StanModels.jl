@@ -1,6 +1,4 @@
 using StanModels
-using CmdStan, StanMCMCChain
-gr(size=(500,500));
 
 ProjDir = rel_path_s("..", "scripts", "08")
 cd(ProjDir)
@@ -14,7 +12,7 @@ dcc[:cont_africa] = Array{Float64}(convert(Array{Int}, dcc[:cont_africa]))
 dcc[:rugged] = convert(Array{Float64}, dcc[:rugged])
 first(dcc[[:rugged, :cont_africa, :log_gdp]], 5)
 
-m_8_1_model = "
+m_8_1 = "
 data{
     int N;
     vector[N] log_gdp;
@@ -40,9 +38,9 @@ model{
 }
 ";
 
-stanmodel = Stanmodel(name="m_8_1_model",
+stanmodel = Stanmodel(name="m_8_1",
 monitors = ["a", "bR", "bA", "bAR", "sigma"],
-model=m_8_1_model, output_format=:mcmcchain);
+model=m_8_1, output_format=:mcmcchain);
 
 m_8_1_data = Dict("N" => size(dcc, 1),
 "log_gdp" => dcc[:log_gdp],  "rugged" => dcc[:rugged],

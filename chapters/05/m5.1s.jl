@@ -12,7 +12,7 @@ df[:MedianAgeMarriage_s] = convert(Vector{Float64},
   (df[:MedianAgeMarriage]) .- mean_ma)/std(df[:MedianAgeMarriage]);
 first(df, 5)
 
-ad_model = "
+ad = "
 data {
  int < lower = 1 > N; // Sample size
  vector[N] divorce; // Predictor
@@ -36,7 +36,7 @@ model {
 ";
 
 stanmodel = Stanmodel(name="MedianAgeDivorce", monitors = ["a", "bA", "sigma"],
-  model=ad_model, output_format=:mcmcchain);
+  model=ad, output_format=:mcmcchain);
 
 maddata = Dict("N" => length(df[:Divorce]), "divorce" => df[:Divorce],
     "median_age" => df[:MedianAgeMarriage_s]);

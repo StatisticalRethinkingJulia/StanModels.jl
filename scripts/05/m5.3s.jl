@@ -35,7 +35,7 @@ rethinking_data = "
 
 # Define the Stan language model
 
-m5_3_model = "
+m5_3 = "
 data {
   int N;
   vector[N] divorce;
@@ -60,9 +60,9 @@ model {
 
 # Define the Stanmodel and set the output format to :mcmcchain.
 
-stanmodel = Stanmodel(name="m5_3_model",
+stanmodel = Stanmodel(name="m5_3",
 monitors = ["a", "bA", "bM", "sigma", "Divorce"],
- model=m5_3_model, output_format=:mcmcchain);
+ model=m5_3, output_format=:mcmcchain);
 
 # Input data for cmdstan
 

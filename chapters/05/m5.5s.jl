@@ -12,7 +12,7 @@ dcc[:neocortex_perc] = parse.(Float64, dcc[:neocortex_perc])
 
 first(dcc, 5)
 
-m5_5_model = "
+m5_5 = "
 data{
     int N;
     vector[N] kcal_per_g;
@@ -32,9 +32,9 @@ model{
 }
 ";
 
-stanmodel = Stanmodel(name="m5_5_model",
+stanmodel = Stanmodel(name="m5_5",
 monitors = ["a", "bn", "sigma"],
- model=m5_5_model, output_format=:mcmcchain);
+ model=m5_5, output_format=:mcmcchain);
 
 m5_5_data = Dict("N" => size(dcc, 1),
   "kcal_per_g" => dcc[:kcal_per_g],

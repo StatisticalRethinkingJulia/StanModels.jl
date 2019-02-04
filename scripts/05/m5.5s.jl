@@ -22,7 +22,7 @@ first(dcc, 5)
 
 # Define the Stan language model
 
-m5_5_model = "
+m5_5 = "
 data{
     int N;
     vector[N] kcal_per_g;
@@ -44,9 +44,9 @@ model{
 
 # Define the Stanmodel and set the output format to :mcmcchain.
 
-stanmodel = Stanmodel(name="m5_5_model",
+stanmodel = Stanmodel(name="m5_5",
 monitors = ["a", "bn", "sigma"],
- model=m5_5_model, output_format=:mcmcchain);
+ model=m5_5, output_format=:mcmcchain);
 
 # Input data for cmdstan
 

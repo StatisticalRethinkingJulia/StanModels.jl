@@ -1,8 +1,6 @@
-# Load Julia packages (libraries) needed  for the snippets in chapter 0
+# Load Julia packages (libraries)
 
 using StanModels
-using CmdStan, StanMCMCChain
-gr(size=(500,500));
 
 # CmdStan uses a tmp directory to store the output of cmdstan
 
@@ -22,7 +20,7 @@ first(dcc[[:rugged, :cont_africa, :log_gdp]], 5)
 
 # Define the Stan language model
 
-m_8_1_model = "
+m_8_1 = "
 data{
     int N;
     vector[N] log_gdp;
@@ -50,9 +48,9 @@ model{
 
 # Define the Stanmodel and set the output format to :mcmcchain.
 
-stanmodel = Stanmodel(name="m_8_1_model", 
+stanmodel = Stanmodel(name="m_8_1", 
 monitors = ["a", "bR", "bA", "bAR", "sigma"],
-model=m_8_1_model, output_format=:mcmcchain);
+model=m_8_1, output_format=:mcmcchain);
 
 # Input data for cmdstan
 
@@ -81,4 +79,4 @@ sigma  0.96 0.05  0.87  1.04   339    1
 
 describe(chn)
 
-# End of `08/m8.1s.jl`
+# End of `m8.1s.jl`

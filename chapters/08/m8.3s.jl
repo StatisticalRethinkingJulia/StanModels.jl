@@ -1,17 +1,15 @@
 using StanModels
-using CmdStan, StanMCMCChain
-gr(size=(500,500));
 
 ProjDir = rel_path_s("..", "scripts", "08")
 cd(ProjDir)
 
-m_8_3_model = "
+m_8_3 = "
 data{
   int N;
   vector[N] y;
 }
 parameters{
-  real sigma;
+  real<lower=0> sigma;
   real alpha;
 }
 model{
@@ -23,13 +21,14 @@ model{
 }
 ";
 
-stanmodel = Stanmodel(name="m_8_3_model", monitors = ["alpha", "mu", "sigma"],
-model=m_8_3_model, output_format=:mcmcchain);
+stanmodel = Stanmodel(name="m_8_3", monitors = ["alpha", "mu", "sigma"],
+model=m_8_3, output_format=:mcmcchain);
 
-m_8_3_data = Dict("N" => 2, "y" => [-1, 1]);
+m_8_3_data = Dict("N" => 2, "y" => [-1.0, 1.0]);
+m_8_3_init = Dict("alpha" => 0.0, "sigma" => 1.0);
 
-rc, chn, cnames = stan(stanmodel, m_8_3_data, ProjDir, diagnostics=false,
-  summary=true, CmdStanDir=CMDSTAN_HOME);
+rc, chn, cnames = stan(stanmodel, m_8_3_data, ProjDir, init=m_8_3_init,
+ diagnostics=false, summary=true, CmdStanDir=CMDSTAN_HOME);
 
 rethinking = "
         mean   sd  5.5% 94.5% n_eff Rhat

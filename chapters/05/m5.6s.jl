@@ -12,7 +12,7 @@ dcc[:log_mass] = log.(dcc[:mass])
 
 first(dcc[[3, 7, 9]], 5)
 
-m5_6_model = "
+m5_6 = "
 data{
     real kcal_per_g[17];
     real log_mass[17];
@@ -34,9 +34,9 @@ model{
 }
 ";
 
-stanmodel = Stanmodel(name="m5_5_model",
+stanmodel = Stanmodel(name="m5_5",
 monitors = ["a", "bm", "sigma"],
- model=m5_6_model, output_format=:mcmcchain);
+ model=m5_6, output_format=:mcmcchain);
 
 m5_6_data = Dict("N" => size(dcc, 1),
   "kcal_per_g" => dcc[:kcal_per_g],
