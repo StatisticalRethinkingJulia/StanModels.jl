@@ -12,9 +12,9 @@ maximum_a_posteriori(model, lower_bound, upper_bound)
 link(xrange, chain, vars, xbar) 
 ```
 
-## `rel_path`
+## `rel_path_s`
 ```@docs
-rel_path(parts...)
+rel_path_s(parts...)
 ```
 
 ## `generate`

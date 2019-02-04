@@ -2,13 +2,13 @@ using StatisticalRethinking, Literate
 
 """
 
-# generate
+# generate_s
 
 Utility function to generate all notebooks and chapters from scripts in the scripts directory.
 
 ### Method
 ```julia
-generate(sd = script_dict)
+generate_s(sd = script_dict_s)
 ```
 
 ### Required arguments
@@ -16,20 +16,21 @@ generate(sd = script_dict)
 None, all notebooks/.. and chapters/.. files are regenerated.
 
 """
-function generate(sd::DataStructures.OrderedDict{AbstractString, Vector{ScriptEntry}} = script_dict)
-  DocDir = rel_path("..", "docs", "src")
+function generate_s(sd::DataStructures.OrderedDict{AbstractString, 
+  Vector{ScriptEntry}} = script_dict_s)
+  DocDir = rel_path_s("..", "docs", "src")
 
   for chapter in keys(sd)
-    ProjDir = rel_path("..", "scripts", chapter)
+    ProjDir = rel_path_s("..", "scripts", chapter)
 
-    ChapterDir = rel_path("..", "chapters")
+    ChapterDir = rel_path_s("..", "chapters")
     !isdir(ChapterDir) && mkdir(ChapterDir)  
-    ChapterDir = rel_path("..", "chapters", "$(chapter)")
-    ScriptsDir = rel_path("..", "scripts", "$(chapter)")
+    ChapterDir = rel_path_s("..", "chapters", "$(chapter)")
+    ScriptsDir = rel_path_s("..", "scripts", "$(chapter)")
 
-    NotebookDir = rel_path("..", "notebooks")
+    NotebookDir = rel_path_s("..", "notebooks")
     !isdir(NotebookDir) && mkdir(NotebookDir)  
-    NotebookDir = rel_path("..", "notebooks", "$(chapter)")
+    NotebookDir = rel_path_s("..", "notebooks", "$(chapter)")
   
     !isdir(ProjDir) && break
   
@@ -64,13 +65,13 @@ end
 
 """
 
-# generate
+# generate_s
 
 Generate notebooks and scripts in a single chapter.
 
 ### Method
 ```julia
-generate(chapter::AbstractString)
+generate_s(chapter::AbstractString)
 ```
 
 ### Required arguments
@@ -78,22 +79,22 @@ generate(chapter::AbstractString)
 Generate notebooks and scripts in a single chapter, e.g. generate("04")
 
 """
-function generate(chapter::AbstractString; sd=script_dict)
+function generate_s(chapter::AbstractString; sd=script_dict_s)
   split_chapter = split(chapter, "/")
   if length(split_chapter) == 2
     generate(split_chapter...)
   else
-    DocDir = rel_path("..", "docs", "src")
-    ProjDir = rel_path("..", "scripts", chapter)
+    DocDir = rel_path_s("..", "docs", "src")
+    ProjDir = rel_path_s("..", "scripts", chapter)
 
-    ChapterDir = rel_path("..", "chapters")
+    ChapterDir = rel_path_s("..", "chapters")
     !isdir(ChapterDir) && mkdir(ChapterDir)  
-    ChapterDir = rel_path("..", "chapters", "$(chapter)")
-    ScriptsDir = rel_path("..", "scripts", "$(chapter)")
+    ChapterDir = rel_path_s("..", "chapters", "$(chapter)")
+    ScriptsDir = rel_path_s("..", "scripts", "$(chapter)")
 
-    NotebookDir = rel_path("..", "notebooks")
+    NotebookDir = rel_path_s("..", "notebooks")
     !isdir(NotebookDir) && mkdir(NotebookDir)  
-    NotebookDir = rel_path("..", "notebooks", "$(chapter)")
+    NotebookDir = rel_path_s("..", "notebooks", "$(chapter)")
 
     if isdir(ProjDir)
 
@@ -129,13 +130,13 @@ end
 
 """
 
-# generate
+# generate_s
 
 Generate a single notebook and script
 
 ### Method
 ```julia
-generate(chapter::AbstractString, file::AbstractString)
+generate_s(chapter::AbstractString, file::AbstractString)
 ```
 
 ### Required arguments
@@ -144,18 +145,18 @@ Generate notebook and script `file` in `chapter`, e.g. generate("04", "m4.1d.jl"
 or  generate("04/m4.1d.jl")
 
 """
-function generate(chapter::AbstractString, scriptfile::AbstractString; sd=script_dict)
-  DocDir = rel_path("..", "docs", "src")
-  ProjDir = rel_path("..", "scripts", chapter)
+function generate_s(chapter::AbstractString, scriptfile::AbstractString; sd=script_dict_s)
+  DocDir = rel_path_s("..", "docs", "src")
+  ProjDir = rel_path_s("..", "scripts", chapter)
 
-  ChapterDir = rel_path("..", "chapters")
+  ChapterDir = rel_path_s("..", "chapters")
   !isdir(ChapterDir) && mkdir(ChapterDir)  
-  ChapterDir = rel_path("..", "chapters", "$(chapter)")
-  ScriptsDir = rel_path("..", "scripts", "$(chapter)")
+  ChapterDir = rel_path_s("..", "chapters", "$(chapter)")
+  ScriptsDir = rel_path_s("..", "scripts", "$(chapter)")
 
-  NotebookDir = rel_path("..", "notebooks")
+  NotebookDir = rel_path_s("..", "notebooks")
   !isdir(NotebookDir) && mkdir(NotebookDir)  
-  NotebookDir = rel_path("..", "notebooks", "$(chapter)")
+  NotebookDir = rel_path_s("..", "notebooks", "$(chapter)")
 
   if isdir(ProjDir)
 

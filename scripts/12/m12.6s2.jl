@@ -2,7 +2,7 @@
 using StatisticalRethinking
 using CmdStan, StanMCMCChain
 
-ProjDir = rel_path("..", "scripts", "12")
+ProjDir = rel_path_s("..", "scripts", "12")
 
 d = CSV.read(rel_path( "..", "data",  "Kline.csv"), delim=';');
 size(d) # Should be 10x5

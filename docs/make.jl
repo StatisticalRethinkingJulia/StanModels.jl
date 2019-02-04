@@ -5,8 +5,8 @@ using Documenter
 # The idea: generate both docs and notebooks using Literate
 # Based on ideas and work from Tamas Papp!
 
-DOC_ROOT = rel_path("..", "docs")
-DocDir =  rel_path("..", "docs", "src")
+DOC_ROOT = rel_path_s("..", "docs")
+DocDir =  rel_path_s("..", "docs", "src")
 
 page_list = Array{Pair{String, Any}, 1}();
 append!(page_list, [Pair("Home", "intro.md")]);
@@ -17,8 +17,8 @@ append!(page_list, [Pair("Acknowledgements", "acknowledgements.md")]);
 append!(page_list, [Pair("References", "references.md")])
 
 for chapter in keys(script_dict)
-  ProjDir = rel_path( "..", "scripts", chapter)
-  DocDir =  rel_path("..", "docs", "src", chapter)
+  ProjDir = rel_path_s( "..", "scripts", chapter)
+  DocDir =  rel_path_s("..", "docs", "src", chapter)
   
   !isdir(ProjDir) && break
   
@@ -55,5 +55,5 @@ makedocs(root = DOC_ROOT,
 )
 
 deploydocs(root = DOC_ROOT,
-    repo = "github.com/StanJulia/StatisticalRethinking.jl.git",
+    repo = "github.com/StatisticalRethinkingJulia/StatisticalRethinking.jl.git",
  )
