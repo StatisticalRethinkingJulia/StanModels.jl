@@ -1,4 +1,4 @@
-using SRStan
+using StanModels
 using Test
 
 println("Tests are executed in docs job.")

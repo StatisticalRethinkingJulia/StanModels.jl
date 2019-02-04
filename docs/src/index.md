@@ -1,5 +1,5 @@
 ```@meta
-CurrentModule = SRStan
+CurrentModule = StanModels
 ```
 
 ## `maximum_a_posteriori`

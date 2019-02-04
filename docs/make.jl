@@ -1,4 +1,4 @@
-using SRStan
+using StanModels
 using Literate
 using Documenter
 
@@ -16,7 +16,7 @@ append!(page_list, [Pair("Notes", "notes.md")]);
 append!(page_list, [Pair("Acknowledgements", "acknowledgements.md")]);
 append!(page_list, [Pair("References", "references.md")])
 
-for chapter in keys(script_dict)
+for chapter in keys(script_dict_s)
   ProjDir = rel_path_s( "..", "scripts", chapter)
   DocDir =  rel_path_s("..", "docs", "src", chapter)
   
@@ -25,7 +25,7 @@ for chapter in keys(script_dict)
   cd(ProjDir) do
     
     script_list = Array{Pair{String, Any}, 1}();
-    for script in script_dict[chapter]
+    for script in script_dict_s[chapter]
       if script.doc
         file = script.scriptfile
         append!(script_list, [Pair(file[1:end-3], "$(chapter)/$(file[1:end-3]).md")])
@@ -49,11 +49,11 @@ append!(page_list, [Pair("Functions", "index.md")])
 
 makedocs(root = DOC_ROOT,
     modules = Module[],
-    sitename = "SRStan.jl",
+    sitename = "StanModels.jl",
     authors = "Rob Goedman, Richard Torkar, and contributors.",
     pages = page_list
 )
 
 deploydocs(root = DOC_ROOT,
-    repo = "github.com/StatisticalRethinkingJulia/SRStan.jl.git",
+    repo = "github.com/StatisticalRethinkingJulia/StanModels.jl.git",
  )

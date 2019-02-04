@@ -1,4 +1,4 @@
-using SRStan
+using StanModels
 using CmdStan, StanMCMCChain
 gr(size=(500,500));
 

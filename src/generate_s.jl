@@ -1,4 +1,4 @@
-using SRStan, Literate
+using StanModels, Literate
 
 """
 
@@ -82,7 +82,7 @@ Generate notebooks and scripts in a single chapter, e.g. generate("04")
 function generate_s(chapter::AbstractString; sd=script_dict_s)
   split_chapter = split(chapter, "/")
   if length(split_chapter) == 2
-    generate(split_chapter...)
+    generate_s(split_chapter...)
   else
     DocDir = rel_path_s("..", "docs", "src")
     ProjDir = rel_path_s("..", "scripts", chapter)

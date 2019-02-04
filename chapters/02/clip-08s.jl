@@ -1,4 +1,4 @@
-using SRStan, CmdStan, StanMCMCChain
+using StanModels
 gr(size=(500,500));
 
 ProjDir = rel_path_s("..", "scripts", "02")

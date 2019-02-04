@@ -1,4 +1,4 @@
-name = "SRStan"
+name = "StanModels"
 uuid = "c0d4b439-9b03-593a-8601-8041ff74cef7"
 authors = ["Rob J Goedman <goedman@icloud.com"]
 version = "0.1.0"

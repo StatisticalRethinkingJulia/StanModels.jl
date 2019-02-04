@@ -1,4 +1,4 @@
-using SRStan
+using StanModels
 using CmdStan, StanMCMCChain
 
 ProjDir = rel_path_s("..", "scripts", "05")
