@@ -2,12 +2,11 @@ module StanModels
 
 using Reexport 
 
-@reexport using SR, CSV
+@reexport using StatisticalRethinking, CSV
 @reexport using CmdStan, StanMCMCChain
 @reexport using MCMCChain
 
 using DataStructures
-import SR: scriptentry
 
 const src_path_s = @__DIR__
 
