@@ -1,12 +1,11 @@
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
-using StatisticalRethinking
-using CmdStan, StanMCMCChain, JLD
+using StanModels
 gr(size=(500,500));
 
 # CmdStan uses a tmp directory to store the output of cmdstan
 
-ProjDir = rel_path("..", "scripts", "04")
+ProjDir = rel_path_s("..", "scripts", "04")
 cd(ProjDir)
 
 # ### snippet 4.7

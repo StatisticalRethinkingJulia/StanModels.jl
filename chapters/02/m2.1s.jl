@@ -1,10 +1,10 @@
-using StanModels, CmdStan, StanMCMCChain
+using StanModels
 gr(size=(500,500));
 
 ProjDir = rel_path_s("..", "scripts", "02")
 cd(ProjDir)
 
-binomialstanmodel = "
+m_2_1 = "
 // Inferring a Rate
 data {
   int N;
@@ -25,7 +25,7 @@ model {
 }
 ";
 
-stanmodel = Stanmodel(name="binomial", monitors = ["theta"], model=binomialstanmodel,
+stanmodel = Stanmodel(name="m_2_1", monitors = ["theta"], model=m_2_1,
   output_format=:mcmcchain);
 
 N2 = 15

@@ -1,8 +1,7 @@
-using StatisticalRethinking
-using CmdStan, StanMCMCChain, JLD
+using StanModels
 gr(size=(500,500));
 
-ProjDir = rel_path("..", "scripts", "04")
+ProjDir = rel_path_s("..", "scripts", "04")
 cd(ProjDir)
 
 howell1 = CSV.read(rel_path("..", "data", "Howell1.csv"), delim=';')

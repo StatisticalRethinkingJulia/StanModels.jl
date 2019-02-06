@@ -1,6 +1,6 @@
 # Load Julia packages (libraries) needed
 
-using StanModels, CmdStan, StanMCMCChain
+using StanModels
 gr(size=(500,500));
 
 # CmdStan uses a tmp directory to store the output of cmdstan

@@ -1,11 +1,10 @@
 # Load Julia packages (libraries) needed  for the snippets in chapter 0
 
-using StatisticalRethinking
-using CmdStan, StanMCMCChain
+using StanModels
 
 # CmdStan uses a tmp directory to store the output of cmdstan
 
-ProjDir = rel_path("..", "scripts", "05")
+ProjDir = rel_path_s("..", "scripts", "05")
 cd(ProjDir)
 
 # Read the milk data

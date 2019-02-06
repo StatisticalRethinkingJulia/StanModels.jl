@@ -1,6 +1,4 @@
 using StanModels
-using CmdStan, StanMCMCChain
-gr(size=(500,500));
 
 ProjDir = rel_path_s("..", "scripts", "13")
 cd(ProjDir)

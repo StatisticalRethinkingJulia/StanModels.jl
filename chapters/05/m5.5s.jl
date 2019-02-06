@@ -1,7 +1,6 @@
-using StatisticalRethinking
-using CmdStan, StanMCMCChain
+using StanModels
 
-ProjDir = rel_path("..", "scripts", "05")
+ProjDir = rel_path_s("..", "scripts", "05")
 cd(ProjDir)
 
 wd = CSV.read(rel_path("..", "data", "milk.csv"), delim=';')

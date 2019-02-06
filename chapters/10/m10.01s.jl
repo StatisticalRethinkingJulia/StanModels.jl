@@ -1,8 +1,6 @@
-using StatisticalRethinking
-using CmdStan, StanMCMCChain
-gr(size=(500,500));
+using StanModels
 
-ProjDir = rel_path("..", "scripts", "08")
+ProjDir = rel_path_s("..", "scripts", "08")
 cd(ProjDir)
 
 d = CSV.read(rel_path("..", "data", "chimpanzees.csv"), delim=';');
