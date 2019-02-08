@@ -118,10 +118,10 @@ Developing `rethinking` must have been an on-going process over several years, `
 
 
 [docs-dev-img]: https://img.shields.io/badge/docs-dev-blue.svg
-[docs-dev-url]: https://stanjulia.github.io/StanModels.jl/latest
+[docs-dev-url]: https://statisticalrethinkingjulia.github.io/StanModels.jl/latest
 
 [docs-stable-img]: https://img.shields.io/badge/docs-stable-blue.svg
-[docs-stable-url]: https://stanjulia.github.io/StanModels.jl/stable
+[docs-stable-url]: https://statisticalrethinkingjulia.github.io/StanModels.jl/stable
 
 [travis-img]: https://travis-ci.org/StatisticalRethinkingJulia/StanModels.jl.svg?branch=master
 [travis-url]: https://travis-ci.org/StatisticalRethinkingJulia/StanModels.jl
