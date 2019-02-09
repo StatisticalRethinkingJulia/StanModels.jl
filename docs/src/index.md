@@ -2,21 +2,16 @@
 CurrentModule = StanModels
 ```
 
-## `link`
-```@docs
-link(xrange, chain, vars, xbar) 
-```
-
 ## `rel_path_s`
 ```@docs
 rel_path_s(parts...)
 ```
 
-## `generate`
+## `generate_s`
 ```@docs
-generate(; sd=script_dict)
-generate(chapter::AbstractString; sd=script_dict)
-generate(chapter::AbstractString, scriptfile::AbstractString; sd=script_dict)
+generate_s(; sd=script_dict)
+generate_s(chapter::AbstractString; sd=script_dict_s_)
+generate_s(chapter::AbstractString, scriptfile::AbstractString; sd=script_dict_s_)
 ```
 
 ## `ScriptEntry`
