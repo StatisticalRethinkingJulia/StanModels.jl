@@ -10,7 +10,7 @@
 
 This package contains Julia versions of the mcmc models contained in the R package "rethinking" associated with the book [Statistical Rethinking](https://xcelab.net/rm/statistical-rethinking/) by Richard McElreath. It is part of the [StatisticalRethinkingJulia](https://github.com/StatisticalRethinkingJulia) Github organization of packages.
 
-This package contains the [CmdStan](https://github.com/StanJulia) versions,
+This package contains the [CmdStan](https://github.com/StanJulia) versions.
 
 ## Documentation
 
@@ -18,10 +18,6 @@ This package contains the [CmdStan](https://github.com/StanJulia) versions,
 - [**DEVEL**][docs-dev-url] &mdash; *documentation of the in-development version.*
 
 ## Acknowledgements
-
-Richard Torkar has taken the lead in developing the Turing versions of the models in chapter 8 and subsequent chapters. 
-
-The TuringLang team and #turing contributors on Slack have been extremely helpful! The Turing examples by Cameron Pfiffer have been a great help and followed closely in several example scripts.
 
 The  documentation has been generated using Literate.jl and Documenter.jl based on several ideas demonstrated by Tamas Papp in above mentioned  [DynamicHMCExamples.jl](https://tpapp.github.io/DynamicHMCExamples.jl).
 
