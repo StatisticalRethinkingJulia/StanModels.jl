@@ -40,7 +40,7 @@ model{
 
 stanmodel = Stanmodel(name="m_8_1",
 monitors = ["a", "bR", "bA", "bAR", "sigma"],
-model=m_8_1, output_format=:mcmcchain);
+model=m_8_1, output_format=:mcmcchains);
 
 m_8_1_data = Dict("N" => size(dcc, 1),
 "log_gdp" => dcc[:log_gdp],  "rugged" => dcc[:rugged],

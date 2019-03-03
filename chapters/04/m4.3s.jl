@@ -32,7 +32,7 @@ generated quantities {
 ";
 
 stanmodel = Stanmodel(name="weights", monitors = ["alpha", "beta", "sigma"],model=weightsmodel,
-  output_format=:mcmcchain);
+  output_format=:mcmcchains);
 
 heightsdata = Dict("N" => length(df2[:height]), "height" => df2[:height],
   "weight" => df2[:weight]);

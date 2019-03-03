@@ -41,10 +41,10 @@ generated quantities {
 } 
 ";
 
-# Define the Stanmodel and set the output format to :mcmcchain.
+# Define the Stanmodel and set the output format to :mcmcchains.
 
 stanmodel = Stanmodel(name="weights", monitors = ["alpha", "beta", "sigma"],model=weightsmodel,
-  output_format=:mcmcchain);
+  output_format=:mcmcchains);
 
 # Input data for cmdstan
 

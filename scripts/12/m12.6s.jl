@@ -39,9 +39,9 @@ model{
 }
 ";
 
-# Define the Stanmodel and set the output format to :mcmcchain.
+# Define the Stanmodel and set the output format to :mcmcchains.
 
-stanmodel = Stanmodel(name="m12.6",  model=m12_6, output_format=:mcmcchain);
+stanmodel = Stanmodel(name="m12.6",  model=m12_6, output_format=:mcmcchains);
 
 # Input data for cmdstan
 

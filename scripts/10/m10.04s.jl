@@ -43,11 +43,11 @@ model{
 }
 ";
 
-# Define the Stanmodel and set the output format to :mcmcchain.
+# Define the Stanmodel and set the output format to :mcmcchains.
 
 stanmodel = Stanmodel(name="m_10_04", 
 monitors = ["a.1", "a.2", "a.3", "a.4", "a.5", "a.6", "a.7", "bp", "bpC"],
-model=m_10_04, output_format=:mcmcchain);
+model=m_10_04, output_format=:mcmcchains);
 
 # Input data for cmdstan
 
@@ -59,8 +59,6 @@ m_10_04_data = Dict("N" => size(df, 1), "N_actors" => length(unique(df[:actor]))
 
 rc, chn, cnames = stan(stanmodel, m_10_04_data, ProjDir, diagnostics=false,
   summary=false, CmdStanDir=CMDSTAN_HOME);
-
-# Result rethinking
 
 # Result rethinking
 

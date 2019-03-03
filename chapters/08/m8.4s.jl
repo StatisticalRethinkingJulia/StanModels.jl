@@ -22,7 +22,7 @@ model{
 ";
 
 stanmodel = Stanmodel(name="m_8_4", monitors = ["alpha", "mu", "sigma"],
-model=m_8_4, output_format=:mcmcchain);
+model=m_8_4, output_format=:mcmcchains);
 
 m_8_4_data = Dict("N" => 100, "y" => rand(Normal(0, 1), 100));
 

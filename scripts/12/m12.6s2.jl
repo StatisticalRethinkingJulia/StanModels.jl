@@ -47,10 +47,10 @@ m12_6_2 = "
   }
 ";
 
-# Define the Stanmodel and set the output format to :mcmcchain.
+# Define the Stanmodel and set the output format to :mcmcchains.
 
 stanmodel = Stanmodel(name="m12.6.2",  model=m12_6_2, 
-output_format=:mcmcchain);
+output_format=:mcmcchains);
 
 # Input data for cmdstan
 

@@ -24,7 +24,7 @@ model{
 ";
 
 stanmodel = Stanmodel(name="m_8_5", monitors = ["a1", "a2", "mu", "sigma"],
-model=m_8_5, output_format=:mcmcchain);
+model=m_8_5, output_format=:mcmcchains);
 
 m_8_5_data = Dict("N" => 100, "y" => rand(Normal(0, 1), 100));
 

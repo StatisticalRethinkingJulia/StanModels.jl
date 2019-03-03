@@ -44,7 +44,7 @@ m13_2 = "
 stanmodel = Stanmodel(name="m13_2", model=m13_2,
 monitors=["a", "bm", "sigma_dept", "a_dept.1", "a_dept.2", "a_dept.3",
 "a_dept.4", "a_dept.5", "a_dept.6"],
-output_format=:mcmcchain);
+output_format=:mcmcchains);
 
 ucdata = Dict("N" => size(df, 1), "N_depts" => maximum(df[:dept_id]), "admit" => df[:admit],
 "applications" => df[:applications],  "dept_id"=> df[:dept_id], "male" => df[:male]);

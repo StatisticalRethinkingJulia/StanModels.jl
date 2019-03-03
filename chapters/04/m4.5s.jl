@@ -39,7 +39,7 @@ model{
 ";
 
 stanmodel = Stanmodel(name="weights", monitors = ["a", "b1", "b2", "sigma"],
-model=weightsmodel,  output_format=:mcmcchain);
+model=weightsmodel,  output_format=:mcmcchains);
 
 heightsdata = Dict("N" => size(df2, 1), "height" => df2[:height],
 "weight_s" => df2[:weight_s], "weight_s2" => df2[:weight_s2]);

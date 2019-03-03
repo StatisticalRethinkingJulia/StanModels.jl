@@ -1,7 +1,7 @@
-using StanModels, CmdStan, StanMCMCChain
+using StanModels
 gr(size=(500,500));
 
-ProjDir = rel_path_s("..", "scripts", "04")
+ProjDir = rel_path("..", "scripts", "04")
 cd(ProjDir)
 
 howell1 = CSV.read(rel_path("..", "data", "Howell1.csv"), delim=';')
@@ -31,7 +31,7 @@ model {
 ";
 
 stanmodel = Stanmodel(name="heights", monitors = ["mu", "sigma"],model=heightsmodel,
-  output_format=:mcmcchain);
+  output_format=:mcmcchains);
 
 heightsdata = Dict("N" => length(df2[:height]), "h" => df2[:height]);
 

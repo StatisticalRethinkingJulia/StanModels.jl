@@ -5,12 +5,12 @@ gr(size=(500,500));
 
 # CmdStan uses a tmp directory to store the output of cmdstan
 
-ProjDir = rel_path_s("..", "scripts", "02")
+ProjDir = rel_path("..", "scripts", "02")
 cd(ProjDir)
 
 # Define the Stan language model
 
-m_2_1 = "
+binomialstanmodel = "
 // Inferring a Rate
 data {
   int N;
@@ -31,10 +31,10 @@ model {
 }
 ";
 
-# Define the Stanmodel and set the output format to :mcmcchain.
+# Define the Stanmodel and set the output format to :mcmcchains.
 
-stanmodel = Stanmodel(name="m_2_1", monitors = ["theta"], model=m_2_1,
-  output_format=:mcmcchain);
+stanmodel = Stanmodel(name="binomial", monitors = ["theta"], model=binomialstanmodel,
+  output_format=:mcmcchains);
 
 # Use 16 observations
 
@@ -87,9 +87,15 @@ if rc == 0
   plot(p..., layout=(4, 1))
 end
 
-# Compute at hpd region
+# Show the hpd region
 
-bnds = MCMCChain.hpd(chn[:, 1, :], alpha=0.055);
+MCMCChains.hpd(chn, alpha=0.055, suppress_header=true);
+
+# Compute the hpd bounds for plotting
+
+d, p, c = size(chn);
+theta = convert(Vector{Float64}, reshape(chn.value, (d*p*c)));
+bnds = quantile(theta, [0.045, 0.945])
 
 # Show hpd region
 
@@ -142,7 +148,7 @@ xlim=(0.0, 1.2), lab="Normal approximation using MLE")
 plot!( x, pdf.(Normal( Optim.minimizer(res)[1] , std(draws, mean=mean(chn.value))) , x),
 lab="Normal approximation using MAP")
 density!(draws, lab="CmdStan chain")
-vline!([bnds.value[1]], line=:dash, lab="hpd lower bound")
-vline!([bnds.value[2]], line=:dash, lab="hpd upper bound")
+vline!([bnds[1]], line=:dash, lab="hpd lower bound")
+vline!([bnds[2]], line=:dash, lab="hpd upper bound")
 
 # End of `clip_08s.jl`

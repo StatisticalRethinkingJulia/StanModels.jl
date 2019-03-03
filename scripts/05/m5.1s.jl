@@ -43,10 +43,10 @@ model {
 }
 ";
 
-# Define the Stanmodel and set the output format to :mcmcchain.
+# Define the Stanmodel and set the output format to :mcmcchains.
 
 stanmodel = Stanmodel(name="MedianAgeDivorce", monitors = ["a", "bA", "sigma"],
-  model=ad, output_format=:mcmcchain);
+  model=ad, output_format=:mcmcchains);
 
 # Input data for cmdstan
 
@@ -78,7 +78,7 @@ sigma  1.51 0.16  1.29  1.79  1695    1
 # Plot regression line using means and observations
 
 xi = -3.0:0.01:3.0
-rws, vars, chns = size(chn[:, 1, :])
+rws, vars, chns = size(chn)
 alpha_vals = convert(Vector{Float64}, reshape(chn.value[:, 1, :], (rws*chns)))
 beta_vals = convert(Vector{Float64}, reshape(chn.value[:, 2, :], (rws*chns)))
 yi = mean(alpha_vals) .+ mean(beta_vals)*xi

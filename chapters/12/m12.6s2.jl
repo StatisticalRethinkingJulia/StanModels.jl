@@ -46,7 +46,7 @@ m12_6_2 = "
 ";
 
 stanmodel = Stanmodel(name="m12.6.2",  model=m12_6_2,
-output_format=:mcmcchain);
+output_format=:mcmcchains);
 
 m12_6_2_data = Dict("N" => size(d, 1), "T" => d[:total_tools],
 "N_societies" => 10, "society" => d[:society], "P" => d[:population]);

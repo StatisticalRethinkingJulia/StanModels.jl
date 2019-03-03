@@ -37,7 +37,7 @@ model{
 
 stanmodel = Stanmodel(name="m_10_04",
 monitors = ["a.1", "a.2", "a.3", "a.4", "a.5", "a.6", "a.7", "bp", "bpC"],
-model=m_10_04, output_format=:mcmcchain);
+model=m_10_04, output_format=:mcmcchains);
 
 m_10_04_data = Dict("N" => size(df, 1), "N_actors" => length(unique(df[:actor])),
 "actor" => df[:actor], "pulled_left" => df[:pulled_left],

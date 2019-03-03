@@ -23,10 +23,10 @@ model{
 }
 ";
 
-# Define the Stanmodel, set the output format to :mcmcchain.
+# Define the Stanmodel, set the output format to :mcmcchains.
 
 stanmodel = Stanmodel(name="m_8_2", monitors = ["mu", "sigma"],
-model=m_8_2, output_format=:mcmcchain);
+model=m_8_2, output_format=:mcmcchains);
 
 # Input data for cmdstan
 

@@ -18,7 +18,7 @@ model{
 ";
 
 stanmodel = Stanmodel(name="m_8_2", monitors = ["mu", "sigma"],
-model=m_8_2, output_format=:mcmcchain);
+model=m_8_2, output_format=:mcmcchains);
 
 m_8_2_data = Dict("N" => 2, "y" => [-1, 1]);
 m_8_2_init = Dict("mu" => 0.0, "sigma" => 1.0);

@@ -38,7 +38,7 @@ model{
 }
 ";
 
-stanmodel = Stanmodel(name="m12.6",  model=m12_6, output_format=:mcmcchain);
+stanmodel = Stanmodel(name="m12.6",  model=m12_6, output_format=:mcmcchains);
 
 m12_6_data = Dict("N" => size(d, 1),"N_societies" => 10,
 "total_tools" => d[:total_tools], "logpop" => d[:log_pop],

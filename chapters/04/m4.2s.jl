@@ -35,7 +35,7 @@ model {
 ";
 
 stanmodel = Stanmodel(name="heights", monitors = ["mu", "sigma"],model=heightsmodel,
-  output_format=:mcmcchain);
+  output_format=:mcmcchains);
 
 heightsdata = Dict("N" => length(df2[:height]), "h" => df2[:height_c]);
 

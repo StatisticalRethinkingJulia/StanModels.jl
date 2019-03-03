@@ -35,7 +35,7 @@ model{
 
 stanmodel = Stanmodel(name="m5_5",
 monitors = ["a", "bm", "sigma"],
- model=m5_6, output_format=:mcmcchain);
+ model=m5_6, output_format=:mcmcchains);
 
 m5_6_data = Dict("N" => size(dcc, 1),
   "kcal_per_g" => dcc[:kcal_per_g],

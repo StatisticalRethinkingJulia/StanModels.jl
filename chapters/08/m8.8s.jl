@@ -43,7 +43,7 @@ model{
 ";
 
 stanmodel = Stanmodel(name="m_5_8", monitors = ["a", "br", "bl", "sigma"],
-  model=m_5_8, output_format=:mcmcchain);
+  model=m_5_8, output_format=:mcmcchains);
 
 m_8_8_data = Dict("N" => size(df, 1), "height" => df[:height],
     "leg_left" => df[:leg_left], "leg_right" => df[:leg_right]);

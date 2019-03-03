@@ -50,7 +50,7 @@ model {
 
 stanmodel = Stanmodel(name="m5_3",
 monitors = ["a", "bA", "bM", "sigma", "Divorce"],
- model=m5_3, output_format=:mcmcchain);
+ model=m5_3, output_format=:mcmcchains);
 
 m5_3_data = Dict("N" => size(df, 1), "divorce" => df[:Divorce],
     "marriage_z" => df[:Marriage_s], "median_age_z" => df[:MedianAgeMarriage_s]);

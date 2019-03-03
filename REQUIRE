@@ -11,10 +11,10 @@ GR
 CSV
 Optim
 CmdStan
-StanMCMCChain
+StanMCMCChains
 Literate
 StatsFuns
-MCMCChain
+MCMCChains
 DataStructures
 JLD
 Plots
