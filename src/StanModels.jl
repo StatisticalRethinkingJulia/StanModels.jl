@@ -3,8 +3,7 @@ module StanModels
 using Reexport 
 
 @reexport using StatisticalRethinking, CSV
-@reexport using CmdStan, StanMCMCChains
-@reexport using MCMCChains
+@reexport using CmdStan, MCMCChains
 
 using DataStructures
 

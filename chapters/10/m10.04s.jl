@@ -71,7 +71,7 @@ describe(chn2)
 
 describe(chn2, section=:pooled)
 
-df = to_df(chn2, [:parameters, :pooled])
+df = DataFrame(chn2, [:parameters, :pooled])
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl
 

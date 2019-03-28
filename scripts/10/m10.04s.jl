@@ -95,6 +95,6 @@ describe(chn2, section=:pooled)
 
 # Make it a DataFrame
 
-df = to_df(chn2, [:parameters, :pooled])
+df = DataFrame(chn2, [:parameters, :pooled])
 
 # End of `10/m10.04s.jl`
