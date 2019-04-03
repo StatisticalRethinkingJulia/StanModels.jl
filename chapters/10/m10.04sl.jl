@@ -34,11 +34,11 @@ model {
 generated quantities {
   vector[N] log_lik;
   {
-  vector[N] p;
-  for(n in 1:N) {
-    p[n] = a_chimp[chimp[n]] + (bp + bpc * C[n]) * P[n];
-    log_lik[n] = binomial_logit_lpmf(L[n] | 1, p[n]);
-  }
+    vector[N] p;
+    for(n in 1:N) {
+      p[n] = a_chimp[chimp[n]] + (bp + bpc * C[n]) * P[n];
+      log_lik[n] = binomial_logit_lpmf(L[n] | 1, p[n]);
+    }
   }
 }
 ";
