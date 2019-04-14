@@ -78,7 +78,7 @@ chn2 = set_section(chn, Dict(
 
 describe(chn2)
 
-describe(chn2, section=:pooled)
+describe(chn2, sections=[:pooled])
 
 # This file was generated using Literate.jl, https://github.com/fredrikekre/Literate.jl
 

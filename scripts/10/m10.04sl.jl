@@ -100,6 +100,6 @@ describe(chn2)
 
 # Describe pooled parameter draws
 
-describe(chn2, section=:pooled)
+describe(chn2, sections=[:pooled])
 
 # End of `10/m10.04s.jl`

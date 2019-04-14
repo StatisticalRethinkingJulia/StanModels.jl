@@ -91,7 +91,7 @@ describe(chn2)
 
 # Describe pooled parameter draws
 
-describe(chn2, section=:pooled)
+describe(chn2, sections=[:pooled])
 
 # Make it a DataFrame
 

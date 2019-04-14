@@ -69,7 +69,7 @@ chn2 = set_section(chn, Dict(
 
 describe(chn2)
 
-describe(chn2, section=:pooled)
+describe(chn2, sections=[:pooled])
 
 df = DataFrame(chn2, [:parameters, :pooled])
 
