@@ -14,7 +14,7 @@ This package contains the [CmdStan](https://github.com/StanJulia) versions.
 
 ## Note
 
-The master version is being converted to use StanSample.
+The master version is being converted to use StanSample. WIP!
 
 ## Documentation
 
