@@ -2,6 +2,6 @@ module StanModels
 
 using Reexport 
 
-@reexport using StanSample, MCMCChains, Distributions
+@reexport using StanSample
 
 end # module

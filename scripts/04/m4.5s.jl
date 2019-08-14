@@ -1,24 +1,9 @@
-# Load Julia packages (libraries) needed  for the snippets in chapter 0
+using StanModels, CSV
 
-using StanModels
-
-# CmdStan uses a tmp directory to store the output of cmdstan
-
-ProjDir = rel_path_s("..", "scripts", "04")
-cd(ProjDir)
-
-# ### snippet 4.7
-
-howell1 = CSV.read(rel_path("..", "data", "Howell1.csv"), delim=';')
-df = convert(DataFrame, howell1);
-
-# Use only adults
-
-df2 = filter(row -> row[:age] >= 18, df)
-df2[:height] = convert(Vector{Float64}, df2[:height]);
-df2[:weight] = convert(Vector{Float64}, df2[:weight]);
-df2[:weight_s] = (df2[:weight] .- mean(df2[:weight])) / std(df2[:weight]);
-df2[:weight_s2] = df2[:weight_s] .^ 2;
+howell1 = CSV.read(joinpath(@__DIR__, "..", "..", "data", "Howell1.csv"), delim=';')
+df = filter(row -> row[:age] >= 18, howell1)
+df[!, :weight_s] = (df[!, :weight] .- mean(df[!, :weight])) / std(df[!, :weight]);
+df[!, :weight_s2] = df[!, :weight_s] .^ 2;
 
 # Define the Stan language model
 
@@ -50,21 +35,19 @@ model{
 
 # Define the Stanmodel and set the output format to :mcmcchains.
 
-stanmodel = Stanmodel(name="weights", monitors = ["a", "b1", "b2", "sigma"],
-model=weightsmodel,  output_format=:mcmcchains);
+sm = SampleModel("m4.5s", weightsmodel);
 
 # Input data for cmdstan
 
-heightsdata = Dict("N" => size(df2, 1), "height" => df2[:height],
-"weight_s" => df2[:weight_s], "weight_s2" => df2[:weight_s2]);
+heightsdata = Dict("N" => size(df, 1), "height" => df[!, :height],
+"weight_s" => df[!, :weight_s], "weight_s2" => df[!, :weight_s2]);
 
 # Sample using cmdstan
 
-rc, chn, cnames = stan(stanmodel, heightsdata, ProjDir, diagnostics=false,
-CmdStanDir=CMDSTAN_HOME);
+(sample_file, log_file)= stan_sample(sm, data=heightsdata);
 
 # Describe the draws
-
-describe(chn)
-
-# End of `m4.5s.jl`
+if !(sample_file == nothing)
+  chn = read_samples(sm)
+  describe(chn)
+end

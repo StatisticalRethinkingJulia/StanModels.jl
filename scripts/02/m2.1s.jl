@@ -1,11 +1,4 @@
-# Load Julia packages (libraries) needed
-
-using StanModels
-
-# CmdStan uses a tmp directory to store the output of cmdstan
-
-ProjDir = @__DIR__
-cd(ProjDir)
+using StanModels, Distributions
 
 # Define the Stan language model
 
@@ -30,7 +23,7 @@ model {
 
 # Define the Stanmodel.
 
-stanmodel = SampleModel("binomial", binomial);
+sm = SampleModel("m2.1s", binomial);
 
 # Use 16 observations
 
@@ -45,13 +38,11 @@ binomialdata = Dict("N" => N, "n" => n, "k" => k);
 
 # Sample using cmdstan
  
-(sample_file, log_file) = stan_sample(stanmodel, data=binomialdata);
+(sample_file, log_file) = stan_sample(sm, data=binomialdata);
 
 # Describe the draws
 
 if !(sample_file == nothing)
-  chn = read_samples(stanmodel)
+  chn = read_samples(sm)
   describe(chn)
 end
-
-# End of `clip_08s.jl`
