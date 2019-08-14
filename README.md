@@ -12,14 +12,14 @@ This package contains Julia versions of the mcmc models contained in the R packa
 
 This package contains the [CmdStan](https://github.com/StanJulia) versions.
 
+## Note
+
+The master version is being converted to use StanSample.
+
 ## Documentation
 
 - [**STABLE**][docs-stable-url] &mdash; **documentation of the most recently tagged version.**
 - [**DEVEL**][docs-dev-url] &mdash; *documentation of the in-development version.*
-
-## Acknowledgements
-
-The  documentation has been generated using Literate.jl and Documenter.jl based on several ideas demonstrated by Tamas Papp in above mentioned  [DynamicHMCExamples.jl](https://tpapp.github.io/DynamicHMCExamples.jl).
 
 ## Questions and issues
 

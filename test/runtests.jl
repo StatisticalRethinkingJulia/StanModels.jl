@@ -1,6 +1,6 @@
 using StanModels
 using Test
 
-println("Tests are executed in docs job.")
+ProjDir = @__DIR__
 
-@test 1 == 1
+include(joinpath(ProjDir, "..", "scripts", "02", "m2.1s.jl"))
