@@ -6,7 +6,7 @@ df = CSV.read(joinpath(@__DIR__, "..",  "..", "data",  "Kline.csv"), delim=';');
 df[!, :log_pop] = map((x) -> log(x), df[!, :population]);
 df[!, :society] = 1:10;
 
-m12_6 = "
+m12_6s = "
 data {
     int N;
     int N_societies;
@@ -36,7 +36,7 @@ model{
 
 # Define the Stanmodel and set the output format to :mcmcchains.
 
-sm = SampleModel("m12.6",  m12_6);
+sm = SampleModel("m12.6s",  m12_6s);
 
 # Input data for cmdstan
 

@@ -1,26 +1,13 @@
-# Load Julia packages (libraries) needed  for the snippets in chapter 0
+using StanModels, CSV
 
-using StanModels
-
-# CmdStan uses a tmp directory to store the output of cmdstan
-
-ProjDir = rel_path_s("..", "scripts", "13")
-cd(ProjDir)
-
-# ### snippet 13.1
-
-wd = CSV.read(rel_path("..", "data", "UCBadmit.csv"), delim=';');
-df = convert(DataFrame, wd);
+df = CSV.read(joinpath(@__DIR__, "..", "..", "data", "UCBadmit.csv"), delim=';');
 
 # Preprocess data
 
-df[:admit] = convert(Vector{Int}, df[:admit])
-df[:applications] = convert(Vector{Int}, df[:applications])
-df[:male] = [(df[:gender][i] == "male" ? 1 : 0) for i in 1:size(df, 1)];
-df[:dept_id] = [Int(df[:dept][i][1])-64 for i in 1:size(df, 1)];
-first(df, 5)
+df[!, :male] = [(df[!, :gender][i] == "male" ? 1 : 0) for i in 1:size(df, 1)];
+df[!, :dept_id] = [Int(df[!, :dept][i][1])-64 for i in 1:size(df, 1)];
 
-m13_2 = "
+m13_2s = "
   data{
       int N;
       int N_depts;
@@ -51,26 +38,27 @@ m13_2 = "
 
 # Define the Stanmodel and set the output format to :mcmcchains.
 
-stanmodel = Stanmodel(name="m13_2", model=m13_2,
-monitors=["a", "bm", "sigma_dept", "a_dept.1", "a_dept.2", "a_dept.3", 
-"a_dept.4", "a_dept.5", "a_dept.6"],
-output_format=:mcmcchains);
+sm = SampleModel("m13_2s", m13_2s);
 
 # Input data for cmdstan
 
-ucdata = Dict("N" => size(df, 1), "N_depts" => maximum(df[:dept_id]), "admit" => df[:admit], 
-"applications" => df[:applications],  "dept_id"=> df[:dept_id], "male" => df[:male]);
+ucdata = Dict(
+  "N" => size(df, 1), 
+  "N_depts" => maximum(df[:dept_id]), 
+  "applications" => df[:applications],  
+  "admit" => df[:admit], 
+  "male" => df[:male],
+  "dept_id"=> df[:dept_id]
+);
 
 # Sample using cmdstan
 
-rc, chn, cnames = stan(stanmodel, ucdata, ProjDir, diagnostics=false,
-  summary=false, CmdStanDir=CMDSTAN_HOME);
+(sampleFile, log_file) = stan_sample(sm, data=ucdata);
 
 # Describe the draws
 
-describe(chn)
-
-# Plot the density of posterior draws
-
-plot(chn)
+if !(sample_file == nothing)
+  chn = read_samples(sm)
+  describe(chn)
+end
 

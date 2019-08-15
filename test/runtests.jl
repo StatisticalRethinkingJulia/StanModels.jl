@@ -27,8 +27,9 @@ include(joinpath(ProjDir, "..", "scripts", "10", "m10.2s.jl"))
 include(joinpath(ProjDir, "..", "scripts", "10", "m10.4s.jl"))
 include(joinpath(ProjDir, "..", "scripts", "10", "m10.4sl.jl"))
 
-#include(joinpath(ProjDir, "..", "scripts", "12", "m12.6s.jl"))
+include(joinpath(ProjDir, "..", "scripts", "12", "m12.6s.jl"))
+include(joinpath(ProjDir, "..", "scripts", "12", "m12.6sl.jl"))
 
-#include(joinpath(ProjDir, "..", "scripts", "13", "m13.2s.jl"))
+include(joinpath(ProjDir, "..", "scripts", "13", "m13.2s.jl"))
 
-#include(joinpath(ProjDir, "..", "scripts", "14", "m14.1s.jl"))
+include(joinpath(ProjDir, "..", "scripts", "14", "m14.1s.jl"))

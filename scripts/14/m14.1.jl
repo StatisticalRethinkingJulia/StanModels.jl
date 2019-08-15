@@ -1,9 +1,14 @@
+using StanModels, CSV, Statistics
 
 # Model written by Scott Spencer
 
-# For now used to see if this is possible with DynamicHMC
+df = CSV.read(joinpath(@__DIR__, "..", "..", "data", "WaffleDivorce.csv"), delim=';')
+mean_ma = mean(df[!, :MedianAgeMarriage])
+df[!, :MedianAgeMarriage_s] = 
+  convert(Vector{Float64},  (df[!, :MedianAgeMarriage]) .-
+    mean_ma)/std(df[!, :MedianAgeMarriage]);
 
-m14.1_ model = "
+m14_1s = "
   data {
     int N;
     vector[N] A;
@@ -45,57 +50,19 @@ m14.1_ model = "
   }
 ";
 
-#Organize data and sample from model.
+sm = SampleModel("m14.1s", m14_1s)
 
-R_code = "
-
-dat <- list(
-  N = NROW(d),
-  A = d$MedianAgeMarriage,
-  R = d$Marriage,
-  Dobs = d$Divorce,
-  Dsd = d$Divorce.SE
+m14_1_data = Dict(
+  "N" => size(df, 1),
+  "A" => df[!, :MedianAgeMarriage],
+  "R" => df[!, :Marriage],
+  "Dobs" => df[!, :Divorce],
+  "Dsd" => df[!, :Divorce_SE]
 )
 
-## R code 14.2
-library(rethinking)
-data(WaffleDivorce)
-d <- WaffleDivorce
+(sample_file, log_file) = stan_sample(sm, data=m14_1_data)
 
-# points
-plot( d$Divorce ~ d$MedianAgeMarriage , ylim=c(4,15) ,
-    xlab="Median age marriage" , ylab="Divorce rate" )
-
-# standard errors
-for ( i in 1:nrow(d) ) {
-    ci <- d$Divorce[i] + c(-1,1)*d$Divorce.SE[i]
-    x <- d$MedianAgeMarriage[i]
-    lines( c(x,x) , ci )
-}
-
-## R code 14.3
-dlist <- list(
-    div_obs=d$Divorce,
-    div_sd=d$Divorce.SE,
-    R=d$Marriage,
-    A=d$MedianAgeMarriage
-)
-
-m14.1 <- map2stan(
-    alist(
-        div_est ~ dnorm(mu,sigma),
-        mu <- a + bA*A + bR*R,
-        div_obs ~ dnorm(div_est,div_sd),
-        a ~ dnorm(0,10),
-        bA ~ dnorm(0,10),
-        bR ~ dnorm(0,10),
-        sigma ~ dcauchy(0,2.5)
-    ) ,
-    data=dlist ,
-    start=list(div_est=dlist$div_obs) ,
-    WAIC=FALSE , iter=5000 , warmup=1000 , chains=2 , cores=2 ,
-    control=list(adapt_delta=0.95) )
-
-## R code 14.4
-precis( m14.1 , depth=2 )
-"
+if !(sample_file == nothing)
+  chn = read_samples(sm)
+  describe(chn)
+end

@@ -1,18 +1,12 @@
+using StanModels, CSV
 
-using StanModels
-
-ProjDir = rel_path_s("..", "scripts", "12")
-
-d = CSV.read(rel_path( "..", "data",  "Kline.csv"), delim=';');
-size(d) # Should be 10x5
+df = CSV.read(joinpath(@__DIR__, "..",  "..", "data",  "Kline.csv"), delim=';');
 
 # New col log_pop, set log() for population data
-d[:log_pop] = map((x) -> log(x), d[:population]);
-d[:society] = 1:10;
+df[!, :log_pop] = map((x) -> log(x), df[!, :population]);
+df[!, :society] = 1:10;
 
-first(d, 5)
-
-m12_6_2 = "
+m12_6sl = "
   data {
     int N;
     int T[N];
@@ -22,17 +16,19 @@ m12_6_2 = "
   }
   parameters {
     real alpha;
-    vector[N_societies] a_society;
     real bp;
+    vector[N_societies] a_society;
     real<lower=0> sigma_society;
   }
   model {
-    vector[N] mu;
+    vector[N_societies] mu;
     target += normal_lpdf(alpha | 0, 10);
     target += normal_lpdf(bp | 0, 1);
     target += cauchy_lpdf(sigma_society | 0, 1);
     target += normal_lpdf(a_society | 0, sigma_society);
-    for(i in 1:N) mu[i] = alpha + a_society[society[i]] + bp * log(P[i]);
+    for(i in 1:N) {
+      mu[i] = alpha + a_society[society[i]] + bp * log(P[i]);
+    }
     target += poisson_log_lpmf(T | mu);
   }
   generated quantities {
@@ -43,26 +39,27 @@ m12_6_2 = "
       mu[i] = alpha + a_society[society[i]] + bp * log(P[i]);
       log_lik[i] = poisson_log_lpmf(T[i] | mu[i]);
     }
-    }
   }
+}
 ";
 
 # Define the Stanmodel and set the output format to :mcmcchains.
 
-stanmodel = Stanmodel(name="m12.6.2",  model=m12_6_2, 
-output_format=:mcmcchains);
+sm = SampleModel("m12.6sl",  m12_6sl);
 
 # Input data for cmdstan
 
-m12_6_2_data = Dict("N" => size(d, 1), "T" => d[:total_tools], 
-"N_societies" => 10, "society" => d[:society], "P" => d[:population]);
+m12_6_data = Dict("N" => size(df, 1), "N_societies" => 10,  
+"T" => df[!, :total_tools], "P" => df[!, :population],
+"society" => df[!, :society]);
         
 # Sample using cmdstan
 
-rc, chn, cnames = stan(stanmodel, m12_6_2_data, ProjDir, 
-diagnostics=false, summary=false, CmdStanDir=CMDSTAN_HOME);
+(sample_file, log_file) = stan_sample(sm, data=m12_6_data);
 
 # Describe the draws
 
-describe(chn)
-
+if !(sample_file == nothing)
+  chn = read_samples(sm)
+  describe(chn)
+end
