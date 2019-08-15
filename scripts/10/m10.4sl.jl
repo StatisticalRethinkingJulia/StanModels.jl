@@ -83,7 +83,6 @@ if !(sample_file == nothing)
     )
   )
 
-  describe(chn2) |> display
-  println()
+  describe(chn2)
   describe(chn2, sections=[:pooled])  
 end

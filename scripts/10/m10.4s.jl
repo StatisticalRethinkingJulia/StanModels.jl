@@ -72,7 +72,6 @@ if !(sample_file == nothing)
     :internals => ["lp__", "accept_stat__", "stepsize__", "treedepth__", "n_leapfrog__",
       "divergent__", "energy__"])
   )
-  describe(chn2) |> display
-  println()
+  describe(chn2)
   describe(chn2, sections=[:pooled])  
 end

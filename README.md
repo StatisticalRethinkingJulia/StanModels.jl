@@ -1,9 +1,9 @@
 # StanModels
 
 
-| **Project Status**                                                               |  **Documentation**                                                               | **Build Status**                                                                                |
+| **Project Status**                                                               |  **Build Status**                                                                                |
 |:-------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------:|
-|![][project-status-img] | [![][docs-stable-img]][docs-stable-url] [![][docs-dev-img]][docs-dev-url] | [![][travis-img]][travis-url] |
+|![][project-status-img] | [![][travis-img]][travis-url] |
 
 
 ## Introduction
@@ -12,15 +12,18 @@ This package contains Julia versions of the mcmc models contained in the R packa
 
 This package contains the [Stan](https://github.com/StanJulia) versions.
 
-## Note
+## Versions
 
-The master version is being converted to use StanSample. WIP!!
-Also, chapters have changed and in some cases the chapter numbers need to be updated (which I will do when I update StatisticalRethinking.jl).
+### v1.0.0
 
-## Documentation
+- All scripts now use StanSample.jl (instead of CmdStan.jl).
+- Chapters have changed and in some cases the chapter numbers need to be updated (which I will do as I update StatisticalRethinking.jl).
+- This repo now only contains a representative subset of the models.
 
-- [**STABLE**][docs-stable-url] &mdash; **documentation of the most recently tagged version.**
-- [**DEVEL**][docs-dev-url] &mdash; *documentation of the in-development version.*
+### v0.x.x
+
+- All scripts use CmdStan.jl.
+- Documentation is generated using Literate.jl.
 
 ## Questions and issues
 
