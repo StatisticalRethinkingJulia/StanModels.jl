@@ -1,11 +1,4 @@
-# Load Julia packages (libraries).
-
 using StanModels
-
-# CmdStan uses a tmp directory to store the output of cmdstan
-
-ProjDir = rel_path_s("..", "scripts", "08")
-cd(ProjDir)
 
 # Define the Stan language model
 
@@ -29,8 +22,7 @@ model{
 
 # Define the Stanmodel and set the output format to :mcmcchains.
 
-stanmodel = Stanmodel(name="m_8_3", monitors = ["alpha", "mu", "sigma"],
-model=m_8_3, output_format=:mcmcchains);
+sm = SampleModel("m_8_3", m_8_3);
 
 # Input data for cmdstan
 
@@ -39,8 +31,8 @@ m_8_3_init = Dict("alpha" => 0.0, "sigma" => 1.0);
 
 # Sample using cmdstan
 
-rc, chn, cnames = stan(stanmodel, m_8_3_data, ProjDir, init=m_8_3_init,
- diagnostics=false, summary=true, CmdStanDir=CMDSTAN_HOME);
+(sample_file, log_file) = stan_sample(sm, data=m_8_3_data,  init=m_8_3_init,
+  summary=true);
   
 rethinking = "
         mean   sd  5.5% 94.5% n_eff Rhat
@@ -50,6 +42,7 @@ sigma 2.15 2.32  0.70  5.21   461    1
 
 # Describe the draws
 
-describe(chn)
-
-# End of `m8.3s.jl`
+if !(sample_file == nothing)
+  chn = read_samples(sm)
+  describe(chn)
+end

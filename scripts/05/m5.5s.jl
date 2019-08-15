@@ -1,19 +1,9 @@
-# Load Julia packages (libraries) needed  for the snippets in chapter 0
+using StanModels, CSV
 
-using StanModels
-
-# CmdStan uses a tmp directory to store the output of cmdstan
-
-ProjDir = rel_path_s("..", "scripts", "05")
-cd(ProjDir)
-
-# Read the milk data
-
-wd = CSV.read(rel_path("..", "data", "milk.csv"), delim=';')
-df = convert(DataFrame, wd);
+df = CSV.read(joinpath(@__DIR__, "..", "..", "data", "milk.csv"), delim=';')
 dcc = filter(row -> !(row[:neocortex_perc] == "NA"), df)
-dcc[:kcal_per_g] = convert(Vector{Float64}, dcc[:kcal_per_g])
-dcc[:neocortex_perc] = parse.(Float64, dcc[:neocortex_perc])
+dcc[!, :kcal_per_g] = convert(Vector{Float64}, dcc[!, :kcal_per_g])
+dcc[!, :neocortex_perc] = parse.(Float64, dcc[!, :neocortex_perc])
 
 # Show first 5 rows
 
@@ -43,32 +33,30 @@ model{
 
 # Define the Stanmodel and set the output format to :mcmcchains.
 
-stanmodel = Stanmodel(name="m5_5",
-monitors = ["a", "bn", "sigma"],
- model=m5_5, output_format=:mcmcchains);
+sm = SampleModel("m5_5", m5_5);
 
 # Input data for cmdstan
 
 m5_5_data = Dict("N" => size(dcc, 1), 
-  "kcal_per_g" => dcc[:kcal_per_g],
-  "neocortex_perc" => dcc[:neocortex_perc]);
+  "kcal_per_g" => dcc[!, :kcal_per_g],
+  "neocortex_perc" => dcc[!, :neocortex_perc]);
 
 # Sample using cmdstan
 
-rc, chn, cnames = stan(stanmodel, m5_5_data, ProjDir, diagnostics=false,
-  CmdStanDir=CMDSTAN_HOME);
-
-# Describe the draws
-
-describe(chn)
+(sample_file, log_file) = stan_sample(sm, data=m5_5_data);
 
 # Rethinking results
 
 rethinking_results = "
-        mean    sd   5.5%  94.5% n_eff  Rhat
-a     -0.814 0.000 -0.815 -0.814     7 1.124
-bn    -0.499 0.006 -0.508 -0.490     2 2.803
-sigma  1.000 0.000  1.000  1.000    42 0.999
-sigma  1.53 0.16  1.28  1.80  1121    1
+       mean   sd  5.5% 94.5%
+ a     0.04 0.15 -0.21  0.29
+ bN    0.13 0.22 -0.22  0.49
+ sigma 1.00 0.16  0.74  1.26
 "
-# End of `05/5.5s.jl`
+
+# Describe the draws
+if !(sample_file == nothing)
+  chn = read_samples(sm)
+  describe(chn)
+end
+

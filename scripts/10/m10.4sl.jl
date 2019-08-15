@@ -1,22 +1,10 @@
-# Load Julia packages (libraries) needed  for the snippets in chapter 0
+using StanModels, CSV
 
-using StanModels
-
-# CmdStan uses a tmp directory to store the output of cmdstan
-
-ProjDir = @__DIR__
-cd(ProjDir)
-
-# ### snippet 10.4
-
-d = CSV.read(rel_path("..", "data", "chimpanzees.csv"), delim=';');
-df = convert(DataFrame, d);
-
-first(df, 5)
+df = CSV.read(joinpath(@__DIR__, "..", "..", "data", "chimpanzees.csv"), delim=';');
 
 # Define the Stan language model
 
-m_10_04 = "
+m_10_4sl = "
 data {
   int N;
   int<lower=0, upper=1> L[N];
@@ -53,19 +41,17 @@ generated quantities {
 
 # Define the Stanmodel and set the output format to :mcmcchains.
 
-stanmodel = Stanmodel(name="m_10_04", 
-model=m_10_04, output_format=:mcmcchains);
+sm = SampleModel("m_10_4sl", m_10_4sl);
 
 # Input data for cmdstan
 
-m_10_04_data = Dict("N" => size(df, 1), "N_chimps" => length(unique(df[:actor])), 
-"chimp" => df[:actor], "L" => df[:pulled_left],
-"P" => df[:prosoc_left], "C" => df[:condition]);
+m_10_4_data = Dict("N" => size(df, 1), "N_chimps" => length(unique(df[!, :actor])), 
+"chimp" => df[!, :actor], "L" => df[!, :pulled_left],
+"P" => df[!, :prosoc_left], "C" => df[!, :condition]);
 
 # Sample using cmdstan
 
-rc, chn, cnames = stan(stanmodel, m_10_04_data, ProjDir, diagnostics=false,
-  summary=false, CmdStanDir=CMDSTAN_HOME);
+(sample_file, log_file) = stan_sample(sm, data=m_10_4_data);
 
 # Result rethinking
 
@@ -85,21 +71,19 @@ a[7]  1.81 0.39  1.22  2.48  3807    1
 
 # Update sections 
 
-chn2 = set_section(chn, Dict(
-  :parameters => ["bp", "bpc"],
-  :pooled => ["a_chimp.$i" for i in 1:7],
-  :generated => ["log_lik.$i" for i in 1:504],
-  :internals => ["lp__", "accept_stat__", "stepsize__", "treedepth__", "n_leapfrog__",
-    "divergent__", "energy__"]
+if !(sample_file == nothing)
+  chn = read_samples(sm)
+  
+  chn2 = set_section(chn, Dict(
+    :parameters => ["bp", "bpc"],
+    :pooled => ["a_chimp.$i" for i in 1:7],
+    :generated => ["log_lik.$i" for i in 1:504],
+    :internals => ["lp__", "accept_stat__", "stepsize__", "treedepth__", "n_leapfrog__",
+      "divergent__", "energy__"]
+    )
   )
-)
 
-# Describe parameter draws
-
-describe(chn2)
-
-# Describe pooled parameter draws
-
-describe(chn2, sections=[:pooled])
-
-# End of `10/m10.04s.jl`
+  describe(chn2) |> display
+  println()
+  describe(chn2, sections=[:pooled])  
+end

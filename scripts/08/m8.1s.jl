@@ -1,22 +1,14 @@
 # Load Julia packages (libraries)
 
-using StanModels
+using StanModels, CSV
 
-# CmdStan uses a tmp directory to store the output of cmdstan
-
-ProjDir = rel_path_s("..", "scripts", "08")
-cd(ProjDir)
-
-# ### snippet 5.1
-
-d = CSV.read(rel_path("..", "data", "rugged.csv"), delim=';');
-df = convert(DataFrame, d);
+df = convert(DataFrame, 
+  CSV.read(joinpath(@__DIR__, "..", "..", "data", "rugged.csv"), delim=';'));
 
 dcc = filter(row -> !(ismissing(row[:rgdppc_2000])), df)
-dcc[:log_gdp] = log.(dcc[:rgdppc_2000])
-dcc[:cont_africa] = Array{Float64}(convert(Array{Int}, dcc[:cont_africa]))
-dcc[:rugged] = convert(Array{Float64}, dcc[:rugged])
-first(dcc[[:rugged, :cont_africa, :log_gdp]], 5)
+dcc[!, :log_gdp] = log.(dcc[!, :rgdppc_2000])
+dcc[!, :cont_africa] = Array{Float64}(convert(Array{Int}, dcc[!, :cont_africa]))
+dcc[!, :rugged] = convert(Array{Float64}, dcc[!, :rugged])
 
 # Define the Stan language model
 
@@ -48,21 +40,18 @@ model{
 
 # Define the Stanmodel and set the output format to :mcmcchains.
 
-stanmodel = Stanmodel(name="m_8_1", 
-monitors = ["a", "bR", "bA", "bAR", "sigma"],
-model=m_8_1, output_format=:mcmcchains);
+sm = SampleModel("m_8_1", m_8_1);
 
 # Input data for cmdstan
 
 m_8_1_data = Dict("N" => size(dcc, 1), 
-"log_gdp" => dcc[:log_gdp],  "rugged" => dcc[:rugged], 
-"cont_africa" => dcc[:cont_africa], 
-"rugged_cont_africa" => dcc[:rugged] .* dcc[:cont_africa] );
+"log_gdp" => dcc[!, :log_gdp],  "rugged" => dcc[!, :rugged], 
+"cont_africa" => dcc[!, :cont_africa], 
+"rugged_cont_africa" => dcc[!, :rugged] .* dcc[!, :cont_africa] );
 
 # Sample using cmdstan
 
-rc, chn, cnames = stan(stanmodel, m_8_1_data, ProjDir, diagnostics=false,
-  summary=true, CmdStanDir=CMDSTAN_HOME);
+(sample_file, log_file) = stan_sample(sm, data=m_8_1_data);
 
 # Result rethinking
 
@@ -77,6 +66,7 @@ sigma  0.96 0.05  0.87  1.04   339    1
 
 # Describe the draws
 
-describe(chn)
-
-# End of `m8.1s.jl`
+if !(sample_file == nothing)
+  chn = read_samples(sm)
+  describe(chn)
+end

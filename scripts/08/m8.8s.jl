@@ -1,18 +1,10 @@
-# Load Julia packages (libraries) needed  for the snippets in chapter 0
-
 using StanModels
-gr(size=(500,500));
-
-# CmdStan uses a tmp directory to store the output of cmdstan
-
-ProjDir = rel_path_s("..", "scripts", "08")
-cd(ProjDir)
 
 # ### snippet 8.25
 
-N = 100                                                    # individuals
-height  = rand(Normal(10,2), N) ;              # sim total height of each
-leg_prop = rand(Uniform(0.4,0.5), N);      # leg as proportion of height
+N = 100                                          # individuals
+height  = rand(Normal(10,2), N) ; # sim total height of each
+leg_prop = rand(Uniform(0.4,0.5), N); # leg as proportion of height
 
 # sim left leg as proportion + error
 leg_left = leg_prop .* height .+  rand(Normal( 0 , 0.02 ), N);
@@ -29,7 +21,7 @@ first(df, 5)
 
 # Define the Stan language model
 
-m_5_8 = "
+m_8_8 = "
 data{
     int N;
     real height[N];
@@ -57,29 +49,20 @@ model{
 
 # Define the Stanmodel and set the output format to :mcmcchains.
 
-stanmodel = Stanmodel(name="m_5_8", monitors = ["a", "br", "bl", "sigma"],
-  model=m_5_8, output_format=:mcmcchains);
+sm = SampleModel("m_8_8", m_8_8);
 
 # Input data for cmdstan
 
-m_8_8_data = Dict("N" => size(df, 1), "height" => df[:height],
-    "leg_left" => df[:leg_left], "leg_right" => df[:leg_right]);
+m_8_8_data = Dict("N" => size(df, 1), "height" => df[!, :height],
+    "leg_left" => df[!, :leg_left], "leg_right" => df[!, :leg_right]);
 
 # Sample using cmdstan
 
-rc, chn, cnames = stan(stanmodel, m_8_8_data, ProjDir, diagnostics=false,
-  summary=false, CmdStanDir=CMDSTAN_HOME);
+(sample_file, log_file) = stan_sample(sm, data=m_8_8_data);
 
 # Describe the draws
 
-describe(chn)
-
-# Plot the density of posterior draws
-
-plot(chn)
-
-# Autocorrelation
-
-autocorplot(chn)
-
-# End of `08/m8.8s.jl`
+if !(sample_file == nothing)
+  chn = read_samples(sm)
+  describe(chn)
+end

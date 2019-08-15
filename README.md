@@ -14,7 +14,8 @@ This package contains the [CmdStan](https://github.com/StanJulia) versions.
 
 ## Note
 
-The master version is being converted to use StanSample. WIP!
+The master version is being converted to use StanSample. WIP!!
+Also, chapters have changed and in some cases the chapter numbers need to be updated (which I will do when I update StatisticalRethinking.jl).
 
 ## Documentation
 

@@ -1,15 +1,10 @@
-using StanModels
+using StanModels, CSV
 
-ProjDir = rel_path_s("..", "scripts", "12")
-cd(ProjDir)
-
-d = CSV.read(rel_path( "..", "data",  "Kline.csv"), delim=';');
-size(d) # Should be 10x5
+df = CSV.read(joinpath(@__DIR__, "..",  "..", "data",  "Kline.csv"), delim=';');
 
 # New col log_pop, set log() for population data
-d[:log_pop] = map((x) -> log(x), d[:population]);
-d[:society] = 1:10;
-first(d[[:culture, :population, :log_pop, :society]], 5)
+df[!, :log_pop] = map((x) -> log(x), df[!, :population]);
+df[!, :society] = 1:10;
 
 m12_6 = "
 data {
@@ -41,19 +36,21 @@ model{
 
 # Define the Stanmodel and set the output format to :mcmcchains.
 
-stanmodel = Stanmodel(name="m12.6",  model=m12_6, output_format=:mcmcchains);
+sm = SampleModel("m12.6",  m12_6);
 
 # Input data for cmdstan
 
-m12_6_data = Dict("N" => size(d, 1),"N_societies" => 10,  
-"total_tools" => d[:total_tools], "logpop" => d[:log_pop],
-"society" => d[:society]);
+m12_6_data = Dict("N" => size(df, 1), "N_societies" => 10,  
+"total_tools" => df[!, :total_tools], "logpop" => df[!, :log_pop],
+"society" => df[!, :society]);
         
 # Sample using cmdstan
 
-rc, chn, cnames = stan(stanmodel, m12_6_data, ProjDir, diagnostics=false, summary=false, CmdStanDir=CMDSTAN_HOME);
+(sample_file, log_file) = stan_sample(sm, data=m12_6_data);
 
 # Describe the draws
 
-describe(chn)
-
+if !(sample_file == nothing)
+  chn = read_samples(sm)
+  describe(chn)
+end
