@@ -2,7 +2,7 @@ using StanModels
 
 # Define the Stan language model
 
-m_8_3 = "
+m8_3s = "
 data{
   int N;
   vector[N] y;
@@ -22,16 +22,16 @@ model{
 
 # Define the Stanmodel and set the output format to :mcmcchains.
 
-sm = SampleModel("m_8_3", m_8_3);
+sm = SampleModel("m8.3s", m8_3s);
 
 # Input data for cmdstan
 
-m_8_3_data = Dict("N" => 2, "y" => [-1.0, 1.0]);
-m_8_3_init = Dict("alpha" => 0.0, "sigma" => 1.0);
+m8_3_data = Dict("N" => 2, "y" => [-1.0, 1.0]);
+m8_3_init = Dict("alpha" => 0.0, "sigma" => 1.0);
 
 # Sample using cmdstan
 
-(sample_file, log_file) = stan_sample(sm, data=m_8_3_data,  init=m_8_3_init,
+(sample_file, log_file) = stan_sample(sm, data=m8_3_data,  init=m8_3_init,
   summary=true);
   
 rethinking = "

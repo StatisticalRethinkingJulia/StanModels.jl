@@ -8,7 +8,7 @@ df[!, :MedianAgeMarriage_s] =
 
 # Define the Stan language model
 
-ad = "
+m5_1s = "
 data {
  int < lower = 1 > N; // Sample size
  vector[N] divorce; // Predictor
@@ -34,16 +34,16 @@ model {
 
 # Define the Stanmodel and set the output format to :mcmcchains.
 
-sm = SampleModel("m5.1s", ad);
+sm = SampleModel("m5.1s", m5_1s);
 
 # Input data for cmdstan
 
-maddata = Dict("N" => length(df[!, :Divorce]), "divorce" => df[!, :Divorce],
+m5_1_data = Dict("N" => length(df[!, :Divorce]), "divorce" => df[!, :Divorce],
     "median_age" => df[!, :MedianAgeMarriage_s]);
 
 # Sample using cmdstan
 
-(sample_file, log_file) = stan_sample(sm, data=maddata);
+(sample_file, log_file) = stan_sample(sm, data=m5_1_data);
 
 # Result rethinking
 

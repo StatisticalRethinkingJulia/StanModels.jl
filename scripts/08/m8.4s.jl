@@ -1,8 +1,8 @@
-using StanModels
+using StanModels, Distributions
 
 # Define the Stan language model
 
-m_8_4 = "
+m8_4s = "
 data{
   int N;
   vector[N] y;
@@ -22,15 +22,15 @@ model{
 
 # Define the Stanmodel and set the output format to :mcmcchains.
 
-sm = SampleModel("m_8_4", m_8_4);
+sm = SampleModel("m8.4s", m8_4s);
 
 # Input data for cmdstan
 
-m_8_4_data = Dict("N" => 100, "y" => rand(Normal(0, 1), 100));
+m8_4_data = Dict("N" => 100, "y" => rand(Normal(0, 1), 100));
 
 # Sample using cmdstan
 
-(sample_file, log_file) = stan_sample(sm, data=m_8_4_data, summary=true);
+(sample_file, log_file) = stan_sample(sm, data=m8_4_data);
   
 rethinking = "
         mean   sd  5.5% 94.5% n_eff Rhat

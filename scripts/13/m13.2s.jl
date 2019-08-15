@@ -42,18 +42,18 @@ sm = SampleModel("m13_2s", m13_2s);
 
 # Input data for cmdstan
 
-ucdata = Dict(
+m13_2_data = Dict(
   "N" => size(df, 1), 
-  "N_depts" => maximum(df[:dept_id]), 
-  "applications" => df[:applications],  
-  "admit" => df[:admit], 
-  "male" => df[:male],
-  "dept_id"=> df[:dept_id]
+  "N_depts" => maximum(df[!, :dept_id]), 
+  "applications" => df[!, :applications],  
+  "admit" => df[!, :admit], 
+  "male" => df[!, :male],
+  "dept_id"=> df[!, :dept_id]
 );
 
 # Sample using cmdstan
 
-(sampleFile, log_file) = stan_sample(sm, data=ucdata);
+(sampleFile, log_file) = stan_sample(sm, data=m13_2_data);
 
 # Describe the draws
 

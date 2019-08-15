@@ -4,7 +4,7 @@ df = CSV.read(joinpath(@__DIR__, "..", "..", "data", "chimpanzees.csv"), delim='
 
 # Define the Stan language model
 
-m_10_4sl = "
+m10_4sl = "
 data {
   int N;
   int<lower=0, upper=1> L[N];
@@ -41,17 +41,17 @@ generated quantities {
 
 # Define the Stanmodel and set the output format to :mcmcchains.
 
-sm = SampleModel("m_10_4sl", m_10_4sl);
+sm = SampleModel("m10.4sl", m10_4sl);
 
 # Input data for cmdstan
 
-m_10_4_data = Dict("N" => size(df, 1), "N_chimps" => length(unique(df[!, :actor])), 
+m10_4_data = Dict("N" => size(df, 1), "N_chimps" => length(unique(df[!, :actor])), 
 "chimp" => df[!, :actor], "L" => df[!, :pulled_left],
 "P" => df[!, :prosoc_left], "C" => df[!, :condition]);
 
 # Sample using cmdstan
 
-(sample_file, log_file) = stan_sample(sm, data=m_10_4_data);
+(sample_file, log_file) = stan_sample(sm, data=m10_4_data);
 
 # Result rethinking
 

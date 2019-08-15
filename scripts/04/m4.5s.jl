@@ -1,13 +1,13 @@
 using StanModels, CSV
 
-howell1 = CSV.read(joinpath(@__DIR__, "..", "..", "data", "Howell1.csv"), delim=';')
-df = filter(row -> row[:age] >= 18, howell1)
+df = filter(row -> row[:age] >= 18, 
+  CSV.read(joinpath(@__DIR__, "..", "..", "data", "Howell1.csv"), delim=';'))
 df[!, :weight_s] = (df[!, :weight] .- mean(df[!, :weight])) / std(df[!, :weight]);
 df[!, :weight_s2] = df[!, :weight_s] .^ 2;
 
 # Define the Stan language model
 
-weightsmodel = "
+m4_5s = "
 data{
     int N;
     real height[N];
@@ -35,16 +35,16 @@ model{
 
 # Define the Stanmodel and set the output format to :mcmcchains.
 
-sm = SampleModel("m4.5s", weightsmodel);
+sm = SampleModel("m4.5s", m4_5s);
 
 # Input data for cmdstan
 
-heightsdata = Dict("N" => size(df, 1), "height" => df[!, :height],
+m4_5_data = Dict("N" => size(df, 1), "height" => df[!, :height],
 "weight_s" => df[!, :weight_s], "weight_s2" => df[!, :weight_s2]);
 
 # Sample using cmdstan
 
-(sample_file, log_file)= stan_sample(sm, data=heightsdata);
+(sample_file, log_file)= stan_sample(sm, data=m4_5_data);
 
 # Describe the draws
 if !(sample_file == nothing)

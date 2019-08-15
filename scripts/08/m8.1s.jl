@@ -12,7 +12,7 @@ dcc[!, :rugged] = convert(Array{Float64}, dcc[!, :rugged])
 
 # Define the Stan language model
 
-m_8_1 = "
+m8_1s = "
 data{
     int N;
     vector[N] log_gdp;
@@ -40,18 +40,20 @@ model{
 
 # Define the Stanmodel and set the output format to :mcmcchains.
 
-sm = SampleModel("m_8_1", m_8_1);
+sm = SampleModel("m8.1s", m8_1s);
 
 # Input data for cmdstan
 
-m_8_1_data = Dict("N" => size(dcc, 1), 
-"log_gdp" => dcc[!, :log_gdp],  "rugged" => dcc[!, :rugged], 
-"cont_africa" => dcc[!, :cont_africa], 
-"rugged_cont_africa" => dcc[!, :rugged] .* dcc[!, :cont_africa] );
+m8_1_data = Dict(
+  "N" => size(dcc, 1), 
+  "log_gdp" => dcc[!, :log_gdp],  
+  "cont_africa" => dcc[!, :cont_africa], 
+  "rugged" => dcc[!, :rugged], 
+  "rugged_cont_africa" => dcc[!, :rugged] .* dcc[!, :cont_africa] );
 
 # Sample using cmdstan
 
-(sample_file, log_file) = stan_sample(sm, data=m_8_1_data);
+(sample_file, log_file) = stan_sample(sm, data=m8_1_data);
 
 # Result rethinking
 

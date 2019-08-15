@@ -22,7 +22,7 @@ rethinking_data = "
 
 # Define the Stan language model
 
-m5_3 = "
+m5_3s = "
 data {
   int N;
   vector[N] divorce;
@@ -47,7 +47,7 @@ model {
 
 # Define the Stanmodel and set the output format to :mcmcchains.
 
-sm = SampleModel("m5_3", m5_3);
+sm = SampleModel("m5.3s", m5_3s);
 
 # Input data for cmdstan
 

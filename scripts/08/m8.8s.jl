@@ -1,4 +1,4 @@
-using StanModels
+using StanModels, Distributions
 
 # ### snippet 8.25
 
@@ -21,7 +21,7 @@ first(df, 5)
 
 # Define the Stan language model
 
-m_8_8 = "
+m8_8s = "
 data{
     int N;
     real height[N];
@@ -49,16 +49,16 @@ model{
 
 # Define the Stanmodel and set the output format to :mcmcchains.
 
-sm = SampleModel("m_8_8", m_8_8);
+sm = SampleModel("m8.8s", m8_8s);
 
 # Input data for cmdstan
 
-m_8_8_data = Dict("N" => size(df, 1), "height" => df[!, :height],
+m8_8_data = Dict("N" => size(df, 1), "height" => df[!, :height],
     "leg_left" => df[!, :leg_left], "leg_right" => df[!, :leg_right]);
 
 # Sample using cmdstan
 
-(sample_file, log_file) = stan_sample(sm, data=m_8_8_data);
+(sample_file, log_file) = stan_sample(sm, data=m8_8_data);
 
 # Describe the draws
 

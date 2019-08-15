@@ -2,7 +2,7 @@ using StanModels, Distributions
 
 # Define the Stan language model
 
-binomial = "
+m2_1s = "
 // Inferring a Rate
 data {
   int N;
@@ -23,7 +23,7 @@ model {
 
 # Define the Stanmodel.
 
-sm = SampleModel("m2.1s", binomial);
+sm = SampleModel("m2.1s", m2_1s);
 
 # Use 16 observations
 
@@ -34,11 +34,11 @@ n = repeat([9], N)
 
 # Input data for cmdstan
 
-binomialdata = Dict("N" => N, "n" => n, "k" => k);
+m2_1_data = Dict("N" => N, "n" => n, "k" => k);
 
 # Sample using cmdstan
  
-(sample_file, log_file) = stan_sample(sm, data=binomialdata);
+(sample_file, log_file) = stan_sample(sm, data=m2_1_data);
 
 # Describe the draws
 

@@ -1,10 +1,9 @@
 using StanModels, CSV
 
-howell = CSV.read(joinpath(@__DIR__, "..", "..", "data", "Howell1.csv"), delim=';')
-df = filter(row -> row[:age] >= 18, howell)
-first(df, 5)
+df = filter(row -> row[:age] >= 18, 
+  CSV.read(joinpath(@__DIR__, "..", "..", "data", "Howell1.csv"), delim=';'))
 
-heightsmodel = "
+m4_1s = "
 // Inferring a Rate
 data {
   int N;
@@ -24,11 +23,11 @@ model {
 }
 ";
 
-sm = SampleModel("m4.1s", heightsmodel);
+sm = SampleModel("m4.1s", m4_1s);
 
-heightsdata = Dict("N" => length(df[!, :height]), "h" => df[!, :height]);
+m4_1_data = Dict("N" => length(df[!, :height]), "h" => df[!, :height]);
 
-(sample_file, log_file) = stan_sample(sm, data=heightsdata);
+(sample_file, log_file) = stan_sample(sm, data=m4_1_data);
 
 if !(sample_file == nothing)
   chn = read_samples(sm)
