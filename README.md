@@ -1,7 +1,7 @@
 # StanModels
 
 
-|![][project-status-img] | [![][travis-img]][travis-url] |
+[![][travis-img]][travis-url] 
 
 
 ## Introduction
@@ -31,6 +31,3 @@ Question and contributions are very welcome, as are feature requests and suggest
 [travis-url]: https://travis-ci.org/StatisticalRethinkingJulia/StanModels.jl
 
 [issues-url]: https://github.com/StatisticalRethinkingJulia/StanModels.jl/issues
-
-[project-status-img]: https://img.shields.io/badge/lifecycle-wip-orange.svg
-
