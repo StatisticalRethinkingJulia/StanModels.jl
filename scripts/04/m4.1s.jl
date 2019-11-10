@@ -31,5 +31,7 @@ m4_1_data = Dict("N" => length(df[!, :height]), "h" => df[!, :height]);
 
 if !(sample_file == nothing)
   chn = read_samples(sm)
+  # Update parameter names
+  chn = set_names(chn, Dict("mu" => "μ", "sigma" => "σ"))
   describe(chn)
 end

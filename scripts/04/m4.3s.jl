@@ -43,5 +43,6 @@ m4_3_data = Dict("N" => size(df, 1), "height" => df[!, :height],
 
 if !(sample_file == nothing)
   chn = read_samples(sm)
+  #chn = set_names(chn, Dict("mu" => "μ", "sigma" => "σ"))
   describe(chn)
 end
