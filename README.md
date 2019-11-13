@@ -12,6 +12,11 @@ This package contains the [Stan](https://github.com/StanJulia) versions.
 
 ## Versions
 
+### v1.0.1
+
+- Set upper bounds in [compat] section of Project.toml
+- Activated CompatHelper (see CompatHelpper.jl)
+
 ### v1.0.0
 
 - All scripts now use StanSample.jl (instead of CmdStan.jl).
