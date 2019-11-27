@@ -1,6 +1,7 @@
 using StanModels
 
-df = CSV.read(joinpath(@__DIR__, "..", "..", "data", "WaffleDivorce.csv"), delim=';')
+df = CSV.read(joinpath(@__DIR__, "..", "..", "data", "WaffleDivorce.csv"), 
+    delim=';')
 mean_ma = mean(df[!, :MedianAgeMarriage])
 df[!, :MedianAgeMarriage_s] = 
   convert(Vector{Float64},  (df[!, :MedianAgeMarriage]) .-
@@ -57,6 +58,6 @@ sigma  1.51 0.16  1.29  1.79  1695    1
 # Describe the draws
 if !(sample_file == nothing)
   chn = read_samples(sm)
-  describe(chn)
+  show(chn)
 end
 
