@@ -1,4 +1,4 @@
-using StanModels
+using StanModels, MCMCChains
 
 df = CSV.read(joinpath(@__DIR__, "..", "..", "data", "WaffleDivorce.csv"), 
     delim=';')
@@ -44,7 +44,7 @@ m5_1_data = Dict("N" => length(df[!, :Divorce]), "divorce" => df[!, :Divorce],
 
 # Sample using cmdstan
 
-(sample_file, log_file) = stan_sample(sm, data=m5_1_data);
+rc = stan_sample(sm, data=m5_1_data);
 
 # Result rethinking
 
@@ -56,7 +56,7 @@ sigma  1.51 0.16  1.29  1.79  1695    1
 "
 
 # Describe the draws
-if !(sample_file == nothing)
+if success(rc)
   chn = read_samples(sm)
   show(chn)
 end

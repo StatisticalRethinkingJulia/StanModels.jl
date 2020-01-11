@@ -1,4 +1,4 @@
-using StanModels, CSV
+using StanModels, MCMCChains, CSV
 
 df = CSV.read(joinpath(@__DIR__, "..", "..", "data", "WaffleDivorce.csv"), delim=';')
 mean_ma = mean(df[!, :Marriage])
@@ -56,7 +56,7 @@ m5_3_data = Dict("N" => size(df, 1), "divorce" => df[!, :Divorce],
 
 # Sample using cmdstan
 
-(sample_file, log_file) = stan_sample(sm, data=m5_3_data);
+rc = stan_sample(sm, data=m5_3_data);
 
 # Rethinking results
 
@@ -68,7 +68,7 @@ bA    -1.13 0.29 -1.56 -0.67   994    1
 sigma  1.53 0.16  1.28  1.80  1121    1
 "
 
-if !(sample_file == nothing)
+if success(rc)
   chn = read_samples(sm)
   describe(chn)
 end

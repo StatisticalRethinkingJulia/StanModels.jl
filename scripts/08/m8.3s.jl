@@ -1,4 +1,4 @@
-using StanModels
+using StanModels, MCMCChains
 
 # Define the Stan language model
 
@@ -31,7 +31,7 @@ m8_3_init = Dict("alpha" => 0.0, "sigma" => 1.0);
 
 # Sample using cmdstan
 
-(sample_file, log_file) = stan_sample(sm, data=m8_3_data,  init=m8_3_init,
+rc = stan_sample(sm, data=m8_3_data,  init=m8_3_init,
   summary=true);
   
 rethinking = "
@@ -42,7 +42,7 @@ sigma 2.15 2.32  0.70  5.21   461    1
 
 # Describe the draws
 
-if !(sample_file == nothing)
+if success(rc)
   chn = read_samples(sm)
   describe(chn)
 end

@@ -1,4 +1,4 @@
-using StanModels, Distributions
+using StanModels, MCMCChains, Distributions
 
 # ### snippet 8.25
 
@@ -58,11 +58,11 @@ m8_8_data = Dict("N" => size(df, 1), "height" => df[!, :height],
 
 # Sample using cmdstan
 
-(sample_file, log_file) = stan_sample(sm, data=m8_8_data);
+rc = stan_sample(sm, data=m8_8_data);
 
 # Describe the draws
 
-if !(sample_file == nothing)
+if success(rc)
   chn = read_samples(sm)
   describe(chn)
 end

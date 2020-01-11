@@ -1,4 +1,4 @@
-using StanModels
+using StanModels, MCMCChains
 
 df = filter(row -> row[:age] >= 18, 
   CSV.read(joinpath(@__DIR__, "..", "..", "data", "Howell1.csv"), delim=';'))
@@ -29,9 +29,9 @@ sm = SampleModel("m4.2s", m4_2s);
 
 m4_2_data = Dict("N" => size(df, 1), "h" => df[!, :height]);
 
-(sample_file, log_file) = stan_sample(sm, data=m4_2_data);
+rc = stan_sample(sm, data=m4_2_data);
 
-if !(sample_file == nothing)
+if success(rc)
   chn = read_samples(sm)
   chn = set_names(chn, Dict("mu" => "μ", "sigma" => "σ"))
   describe(chn)

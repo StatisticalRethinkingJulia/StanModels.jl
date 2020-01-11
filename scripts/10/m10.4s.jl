@@ -1,4 +1,4 @@
-using StanModels, CSV
+using StanModels, MCMCChains, CSV
 
 df = CSV.read(joinpath(@__DIR__, "..", "..", "data", "chimpanzees.csv"), delim=';');
 
@@ -43,7 +43,7 @@ m10_4_data = Dict("N" => size(df, 1), "N_actors" => length(unique(df[!, :actor])
 
 # Sample using cmdstan
 
-(sample_file, log_file) = stan_sample(sm, data=m10_4_data);
+rc = stan_sample(sm, data=m10_4_data);
 
 # Result rethinking
 
@@ -63,7 +63,7 @@ a[7]  1.81 0.39  1.22  2.48  3807    1
 
 # Update sections 
 
-if !(sample_file == nothing)
+if success(rc)
   chn = read_samples(sm)
   
   chn2 = set_section(chn, Dict(

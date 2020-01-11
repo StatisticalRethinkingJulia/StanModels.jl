@@ -1,4 +1,4 @@
-using StanModels, CSV
+using StanModels, MCMCChains, CSV
 
 df = CSV.read(joinpath(@__DIR__, "..", "..", "data", "chimpanzees.csv"), delim=';');
 
@@ -30,7 +30,7 @@ m10_1_data = Dict("N" => size(df, 1),
 
 # Sample using cmdstan
 
-(sample_file, log_file) = stan_sample(sm, data=m10_1_data);
+rc = stan_sample(sm, data=m10_1_data);
 
 # Result rethinking
 
@@ -41,7 +41,7 @@ a 0.32 0.09 0.18  0.46   166    1
 
 # Describe the draws
 
-if !(sample_file == nothing)
+if success(rc)
   chn = read_samples(sm)
   describe(chn)
 end

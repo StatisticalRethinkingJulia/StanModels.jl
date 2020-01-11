@@ -1,4 +1,4 @@
-using StanModels, CSV
+using StanModels, MCMCChains, CSV
 
 df = CSV.read(joinpath(@__DIR__, "..", "..", "data", "UCBadmit.csv"), delim=';');
 
@@ -53,11 +53,11 @@ m13_2_data = Dict(
 
 # Sample using cmdstan
 
-(sampleFile, log_file) = stan_sample(sm, data=m13_2_data);
+rc = stan_sample(sm, data=m13_2_data);
 
 # Describe the draws
 
-if !(sample_file == nothing)
+if success(rc)
   chn = read_samples(sm)
   describe(chn)
 end

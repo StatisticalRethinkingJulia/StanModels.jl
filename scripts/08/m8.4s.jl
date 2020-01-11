@@ -1,4 +1,4 @@
-using StanModels, Distributions
+using StanModels, MCMCChains, Distributions
 
 # Define the Stan language model
 
@@ -30,7 +30,7 @@ m8_4_data = Dict("N" => 100, "y" => rand(Normal(0, 1), 100));
 
 # Sample using cmdstan
 
-(sample_file, log_file) = stan_sample(sm, data=m8_4_data);
+rc = stan_sample(sm, data=m8_4_data);
   
 rethinking = "
         mean   sd  5.5% 94.5% n_eff Rhat
@@ -40,7 +40,7 @@ sigma 2.15 2.32  0.70  5.21   461    1
 
 # Describe the draws
 
-if !(sample_file == nothing)
+if success(rc)
   chn = read_samples(sm)
   describe(chn)
 end

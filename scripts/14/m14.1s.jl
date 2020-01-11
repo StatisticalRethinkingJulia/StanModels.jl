@@ -1,4 +1,4 @@
-using StanModels, CSV, Statistics
+using StanModels, MCMCChains, CSV, Statistics
 
 # Model written by Scott Spencer
 
@@ -60,9 +60,9 @@ m14_1_data = Dict(
   "Dsd" => df[!, :Divorce_SE]
 )
 
-(sample_file, log_file) = stan_sample(sm, data=m14_1_data)
+rc = stan_sample(sm, data=m14_1_data)
 
-if !(sample_file == nothing)
+if success(rc)
   chn = read_samples(sm)
   describe(chn)
 end

@@ -1,6 +1,6 @@
 # Load Julia packages (libraries)
 
-using StanModels, CSV
+using StanModels, MCMCChains, CSV
 
 df = convert(DataFrame, 
   CSV.read(joinpath(@__DIR__, "..", "..", "data", "rugged.csv"), delim=';'));
@@ -53,7 +53,7 @@ m8_1_data = Dict(
 
 # Sample using cmdstan
 
-(sample_file, log_file) = stan_sample(sm, data=m8_1_data);
+rc = stan_sample(sm, data=m8_1_data);
 
 # Result rethinking
 
@@ -68,7 +68,7 @@ sigma  0.96 0.05  0.87  1.04   339    1
 
 # Describe the draws
 
-if !(sample_file == nothing)
+if success(rc)
   chn = read_samples(sm)
   describe(chn)
 end

@@ -1,4 +1,4 @@
-using StanModels, CSV
+using StanModels, MCMCChains, CSV
 
 df = CSV.read(joinpath(@__DIR__, "..", "..", "data", "milk.csv"), delim=';')
 dcc = filter(row -> !(row[:neocortex_perc] == "NA"), df)
@@ -43,7 +43,7 @@ m5_5_data = Dict("N" => size(dcc, 1),
 
 # Sample using cmdstan
 
-(sample_file, log_file) = stan_sample(sm, data=m5_5_data);
+rc = stan_sample(sm, data=m5_5_data);
 
 # Rethinking results
 
@@ -55,7 +55,7 @@ rethinking_results = "
 "
 
 # Describe the draws
-if !(sample_file == nothing)
+if success(rc)
   chn = read_samples(sm)
   describe(chn)
 end

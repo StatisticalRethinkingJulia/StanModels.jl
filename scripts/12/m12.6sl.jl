@@ -1,4 +1,4 @@
-using StanModels, CSV
+using StanModels, MCMCChains, CSV
 
 df = CSV.read(joinpath(@__DIR__, "..",  "..", "data",  "Kline.csv"), delim=';');
 
@@ -55,11 +55,11 @@ m12_6_data = Dict("N" => size(df, 1), "N_societies" => 10,
         
 # Sample using cmdstan
 
-(sample_file, log_file) = stan_sample(sm, data=m12_6_data);
+rc = stan_sample(sm, data=m12_6_data);
 
 # Describe the draws
 
-if !(sample_file == nothing)
+if success(rc)
   chn = read_samples(sm)
   describe(chn)
 end

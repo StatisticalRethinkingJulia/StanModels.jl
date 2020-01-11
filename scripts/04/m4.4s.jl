@@ -1,4 +1,4 @@
-using StanModels
+using StanModels, MCMCChains
 
 df = filter(row -> row[:age] >= 18, 
   CSV.read(joinpath(@__DIR__, "..", "..", "data", "Howell1.csv"), delim=';'))
@@ -40,11 +40,11 @@ m4_4_data = Dict("N" => size(df, 1), "height" => df[!, :height],
 
 # Sample using cmdstan
 
-(sample_file, log_file) = stan_sample(sm, data=m4_4_data);
+rc = stan_sample(sm, data=m4_4_data);
 
 # Describe the draws
 
-if !(sample_file == nothing)
+if success(rc)
   chn = read_samples(sm)
   #chn = set_names(chn, Dict("mu" => "μ", "sigma" => "σ"))
   describe(chn)

@@ -1,4 +1,4 @@
-using StanModels, Distributions
+using StanModels, MCMCChains, Distributions
 
 # Define the Stan language model
 
@@ -38,11 +38,11 @@ m2_1_data = Dict("N" => N, "n" => n, "k" => k);
 
 # Sample using cmdstan
  
-(sample_file, log_file) = stan_sample(sm, data=m2_1_data);
+rc = stan_sample(sm, data=m2_1_data);
 
 # Describe the draws
 
-if !(sample_file == nothing)
+if success(rc)
   chn = read_samples(sm)
   describe(chn)
 end
