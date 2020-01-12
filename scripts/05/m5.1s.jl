@@ -1,4 +1,4 @@
-using StanModels, MCMCChains
+using StanSample, MCMCChains
 
 df = CSV.read(joinpath(@__DIR__, "..", "..", "data", "WaffleDivorce.csv"), 
     delim=';')

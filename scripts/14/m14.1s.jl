@@ -1,4 +1,4 @@
-using StanModels, MCMCChains, CSV, Statistics
+using StanSample, MCMCChains, CSV, Statistics
 
 # Model written by Scott Spencer
 

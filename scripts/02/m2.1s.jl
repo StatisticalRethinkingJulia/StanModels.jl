@@ -1,4 +1,4 @@
-using StanModels, MCMCChains, Distributions
+using StanSample, MCMCChains, Distributions
 
 # Define the Stan language model
 
@@ -44,5 +44,5 @@ rc = stan_sample(sm, data=m2_1_data);
 
 if success(rc)
   chn = read_samples(sm)
-  describe(chn)
+  show(chn)
 end

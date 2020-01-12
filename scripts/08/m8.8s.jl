@@ -1,4 +1,4 @@
-using StanModels, MCMCChains, Distributions
+using StanSample, MCMCChains, Distributions
 
 # ### snippet 8.25
 

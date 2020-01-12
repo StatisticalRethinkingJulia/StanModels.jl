@@ -1,6 +1,6 @@
 # Load Julia packages (libraries)
 
-using StanModels, MCMCChains, CSV
+using StanSample, MCMCChains, CSV
 
 df = convert(DataFrame, 
   CSV.read(joinpath(@__DIR__, "..", "..", "data", "rugged.csv"), delim=';'));

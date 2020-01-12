@@ -1,7 +1,5 @@
 module StanModels
 
-using Reexport 
-
-@reexport using StanSample
+using StanSample
 
 end # module

@@ -1,4 +1,4 @@
-using StanModels, MCMCChains, CSV
+using StanSample, MCMCChains, CSV
 
 df = CSV.read(joinpath(@__DIR__, "..", "..", "data", "WaffleDivorce.csv"), delim=';')
 mean_ma = mean(df[!, :Marriage])

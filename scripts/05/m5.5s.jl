@@ -1,4 +1,4 @@
-using StanModels, MCMCChains, CSV
+using StanSample, MCMCChains, CSV
 
 df = CSV.read(joinpath(@__DIR__, "..", "..", "data", "milk.csv"), delim=';')
 dcc = filter(row -> !(row[:neocortex_perc] == "NA"), df)

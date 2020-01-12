@@ -1,4 +1,4 @@
-using StanModels, MCMCChains
+using StanSample, MCMCChains
 using Test
 
 ProjDir = @__DIR__

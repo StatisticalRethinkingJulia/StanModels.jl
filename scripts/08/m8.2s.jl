@@ -1,4 +1,4 @@
-using StanModels, MCMCChains
+using StanSample, MCMCChains
 
 # Define the Stan language model
 
