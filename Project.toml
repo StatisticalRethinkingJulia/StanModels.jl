@@ -1,7 +1,7 @@
 name = "StanModels"
 uuid = "fb740163-aa3c-59c1-9c12-c3f890714cde"
 authors = ["Rob J Goedman <goedman@icloud.com"]
-version = "1.1.2"
+version = "2.0.0"
 
 [deps]
 CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
@@ -15,7 +15,8 @@ Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 [compat]
 CSV = "0.5"
 DataFrames = "0.20"
-Distributions = "0.21, 0.22"
+Distributions = "0.22"
 MCMCChains = "1.0"
-StanSample = "1.1"
+#StanMCMCChains = "5.0"
+StanSample = "2.0"
 julia = "1"
