@@ -23,7 +23,7 @@ model {
 
 # Define the Stanmodel.
 
-sm = SampleModel("m2.1s", m2_1s);
+m_2_1s = SampleModel("m2.1s", m2_1s);
 
 # Use 16 observations
 
@@ -38,11 +38,11 @@ m2_1_data = Dict("N" => N, "n" => n, "k" => k);
 
 # Sample using cmdstan
  
-rc = stan_sample(sm, data=m2_1_data);
+rc = stan_sample(m_2_1s, data=m2_1_data);
 
 # Describe the draws
 
 if success(rc)
-  chn = read_samples(sm; output_format=:mcmcchains)
+  chn = read_samples(m_2_1s; output_format=:mcmcchains)
   describe(chn)
 end

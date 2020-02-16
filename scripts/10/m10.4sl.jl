@@ -41,7 +41,7 @@ generated quantities {
 
 # Define the Stanmodel and set the output format to :mcmcchains.
 
-sm = SampleModel("m10.4sl", m10_4sl);
+m_10_4sl = SampleModel("m10.4sl", m10_4sl);
 
 # Input data for cmdstan
 
@@ -51,7 +51,7 @@ m10_4_data = Dict("N" => size(df, 1), "N_chimps" => length(unique(df[!, :actor])
 
 # Sample using cmdstan
 
-rc = stan_sample(sm, data=m10_4_data);
+rc = stan_sample(m_10_4sl, data=m10_4_data);
 
 # Result rethinking
 
@@ -72,7 +72,7 @@ a[7]  1.81 0.39  1.22  2.48  3807    1
 # Update sections 
 
 if success(rc)
-  chn = read_samples(sm; output_format=:mcmcchains)
+  chn = read_samples(m_10_4sl; output_format=:mcmcchains)
   
   chn2 = set_section(chn, Dict(
     :parameters => ["bp", "bpc"],

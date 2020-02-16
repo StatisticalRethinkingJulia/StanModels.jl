@@ -23,7 +23,7 @@ model{
 
 # Define the Stanmodel and set the output format to :mcmcchains.
 
-sm = SampleModel("m8.5s", m8_5s);
+m_8_5s = SampleModel("m8.5s", m8_5s);
 
 # Input data for cmdstan
 
@@ -31,7 +31,7 @@ m8_5_data = Dict("N" => 100, "y" => rand(Normal(0, 1), 100));
 
 # Sample using cmdstan
 
-rc = stan_sample(sm, data=m8_5_data);
+rc = stan_sample(m_8_5s, data=m8_5_data);
   
 rethinking = "
        mean   sd   5.5% 94.5% n_eff Rhat
@@ -42,6 +42,6 @@ sigma  0.90 0.07   0.81  1.02  2186    1
 
 # Describe the draws
 if success(rc)
-  chn = read_samples(sm; output_format=:mcmcchains)
+  chn = read_samples(m_8_5s; output_format=:mcmcchains)
   describe(chn)
 end

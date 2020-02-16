@@ -25,14 +25,14 @@ model {
 }
 ";
 
-sm = SampleModel("m4.2s", m4_2s);
+m_4_2s = SampleModel("m4.2s", m4_2s);
 
 m4_2_data = Dict("N" => size(df, 1), "h" => df[!, :height]);
 
-rc = stan_sample(sm, data=m4_2_data);
+rc = stan_sample(m_4_2s, data=m4_2_data);
 
 if success(rc)
-  chn = read_samples(sm; output_format=:mcmcchains)
+  chn = read_samples(m_4_2s; output_format=:mcmcchains)
   chn = set_names(chn, Dict("mu" => "μ", "sigma" => "σ"))
   describe(chn)
 end

@@ -47,7 +47,7 @@ model {
 
 # Define the Stanmodel and set the output format to :mcmcchains.
 
-sm = SampleModel("m5.3s", m5_3s);
+m_5_3s = SampleModel("m5.3s", m5_3s);
 
 # Input data for cmdstan
 
@@ -56,7 +56,7 @@ m5_3_data = Dict("N" => size(df, 1), "divorce" => df[!, :Divorce],
 
 # Sample using cmdstan
 
-rc = stan_sample(sm, data=m5_3_data);
+rc = stan_sample(m_5_3s, data=m5_3_data);
 
 # Rethinking results
 
@@ -69,6 +69,6 @@ sigma  1.53 0.16  1.28  1.80  1121    1
 "
 
 if success(rc)
-  chn = read_samples(sm; output_format=:mcmcchains)
+  chn = read_samples(m_5_3s; output_format=:mcmcchains)
   describe(chn)
 end

@@ -35,7 +35,7 @@ model{
 
 # Define the Stanmodel and set the output format to :mcmcchains.
 
-sm = SampleModel("m4.5s", m4_5s);
+m_4_5s = SampleModel("m4.5s", m4_5s);
 
 # Input data for cmdstan
 
@@ -44,11 +44,11 @@ m4_5_data = Dict("N" => size(df, 1), "height" => df[!, :height],
 
 # Sample using cmdstan
 
-rc= stan_sample(sm, data=m4_5_data);
+rc= stan_sample(m_4_5s, data=m4_5_data);
 
 # Describe the draws
 if success(rc)
-  chn = read_samples(sm; output_format=:mcmcchains)
+  chn = read_samples(m_4_5s; output_format=:mcmcchains)
   #chn = set_names(chn, Dict("mu" => "μ", "sigma" => "σ"))
   describe(chn)
 end

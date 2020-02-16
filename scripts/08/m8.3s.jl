@@ -22,7 +22,7 @@ model{
 
 # Define the Stanmodel and set the output format to :mcmcchains.
 
-sm = SampleModel("m8.3s", m8_3s);
+m_8_3s = SampleModel("m8.3s", m8_3s);
 
 # Input data for cmdstan
 
@@ -31,7 +31,7 @@ m8_3_init = Dict("alpha" => 0.0, "sigma" => 1.0);
 
 # Sample using cmdstan
 
-rc = stan_sample(sm, data=m8_3_data,  init=m8_3_init,
+rc = stan_sample(m_8_3s, data=m8_3_data,  init=m8_3_init,
   summary=true);
   
 rethinking = "
@@ -43,6 +43,6 @@ sigma 2.15 2.32  0.70  5.21   461    1
 # Describe the draws
 
 if success(rc)
-  chn = read_samples(sm; output_format=:mcmcchains)
+  chn = read_samples(m_8_3s; output_format=:mcmcchains)
   describe(chn)
 end

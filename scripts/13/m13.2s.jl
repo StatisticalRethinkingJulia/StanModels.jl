@@ -38,7 +38,7 @@ m13_2s = "
 
 # Define the Stanmodel and set the output format to :mcmcchains.
 
-sm = SampleModel("m13_2s", m13_2s);
+m_13_2s = SampleModel("m13_2s", m13_2s);
 
 # Input data for cmdstan
 
@@ -53,12 +53,12 @@ m13_2_data = Dict(
 
 # Sample using cmdstan
 
-rc = stan_sample(sm, data=m13_2_data);
+rc = stan_sample(m_13_2s, data=m13_2_data);
 
 # Describe the draws
 
 if success(rc)
-  chn = read_samples(sm; output_format=:mcmcchains)
+  chn = read_samples(m_13_2s; output_format=:mcmcchains)
   describe(chn)
 end
 

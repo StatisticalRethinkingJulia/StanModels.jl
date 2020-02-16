@@ -40,7 +40,7 @@ model{
 
 # Define the Stanmodel and set the output format to :mcmcchains.
 
-sm = SampleModel("m8.1s", m8_1s);
+m_8_1s = SampleModel("m8.1s", m8_1s);
 
 # Input data for cmdstan
 
@@ -53,7 +53,7 @@ m8_1_data = Dict(
 
 # Sample using cmdstan
 
-rc = stan_sample(sm, data=m8_1_data);
+rc = stan_sample(m_8_1s, data=m8_1_data);
 
 # Result rethinking
 
@@ -69,6 +69,6 @@ sigma  0.96 0.05  0.87  1.04   339    1
 # Describe the draws
 
 if success(rc)
-  chn = read_samples(sm; output_format=:mcmcchains)
+  chn = read_samples(m_8_1s; output_format=:mcmcchains)
   describe(chn)
 end

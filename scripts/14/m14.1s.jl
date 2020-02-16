@@ -50,7 +50,7 @@ m14_1s = "
   }
 ";
 
-sm = SampleModel("m14.1s", m14_1s)
+m_14_1s = SampleModel("m14.1s", m14_1s)
 
 m14_1_data = Dict(
   "N" => size(df, 1),
@@ -60,9 +60,9 @@ m14_1_data = Dict(
   "Dsd" => df[!, :Divorce_SE]
 )
 
-rc = stan_sample(sm, data=m14_1_data)
+rc = stan_sample(m_14_1s, data=m14_1_data)
 
 if success(rc)
-  chn = read_samples(sm; output_format=:mcmcchains)
+  chn = read_samples(m_14_1s; output_format=:mcmcchains)
   describe(chn)
 end
