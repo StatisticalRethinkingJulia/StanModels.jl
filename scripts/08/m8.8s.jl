@@ -63,6 +63,6 @@ rc = stan_sample(sm, data=m8_8_data);
 # Describe the draws
 
 if success(rc)
-  chn = read_samples(sm)
+  chn = read_samples(sm; output_format=:mcmcchains)
   describe(chn)
 end

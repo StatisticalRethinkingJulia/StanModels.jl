@@ -32,7 +32,7 @@ m4_2_data = Dict("N" => size(df, 1), "h" => df[!, :height]);
 rc = stan_sample(sm, data=m4_2_data);
 
 if success(rc)
-  chn = read_samples(sm)
+  chn = read_samples(sm; output_format=:mcmcchains)
   chn = set_names(chn, Dict("mu" => "μ", "sigma" => "σ"))
   describe(chn)
 end

@@ -69,6 +69,6 @@ sigma  0.96 0.05  0.87  1.04   339    1
 # Describe the draws
 
 if success(rc)
-  chn = read_samples(sm)
+  chn = read_samples(sm; output_format=:mcmcchains)
   describe(chn)
 end

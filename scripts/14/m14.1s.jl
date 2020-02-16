@@ -63,6 +63,6 @@ m14_1_data = Dict(
 rc = stan_sample(sm, data=m14_1_data)
 
 if success(rc)
-  chn = read_samples(sm)
+  chn = read_samples(sm; output_format=:mcmcchains)
   describe(chn)
 end

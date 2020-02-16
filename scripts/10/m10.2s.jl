@@ -50,6 +50,6 @@ bp 0.57 0.19  0.30  0.87   183 1.01
 # Describe the draws
 
 if success(rc)
-  chn = read_samples(sm)
+  chn = read_samples(sm; output_format=:mcmcchains)
   describe(chn)
 end

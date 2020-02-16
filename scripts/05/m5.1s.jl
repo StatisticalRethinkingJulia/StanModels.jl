@@ -57,7 +57,7 @@ sigma  1.51 0.16  1.29  1.79  1695    1
 
 # Describe the draws
 if success(rc)
-  chn = read_samples(sm)
+  chn = read_samples(sm; output_format=:mcmcchains)
   show(chn)
 end
 

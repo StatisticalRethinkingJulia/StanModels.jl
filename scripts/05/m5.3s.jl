@@ -69,6 +69,6 @@ sigma  1.53 0.16  1.28  1.80  1121    1
 "
 
 if success(rc)
-  chn = read_samples(sm)
+  chn = read_samples(sm; output_format=:mcmcchains)
   describe(chn)
 end

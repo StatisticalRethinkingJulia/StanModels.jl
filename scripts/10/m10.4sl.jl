@@ -72,7 +72,7 @@ a[7]  1.81 0.39  1.22  2.48  3807    1
 # Update sections 
 
 if success(rc)
-  chn = read_samples(sm)
+  chn = read_samples(sm; output_format=:mcmcchains)
   
   chn2 = set_section(chn, Dict(
     :parameters => ["bp", "bpc"],
