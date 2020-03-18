@@ -2,10 +2,7 @@ using StanSample, MCMCChains
 
 df = CSV.read(joinpath(@__DIR__, "..", "..", "data", "WaffleDivorce.csv"), 
     delim=';')
-mean_ma = mean(df[!, :MedianAgeMarriage])
-df[!, :MedianAgeMarriage_s] = 
-  convert(Vector{Float64},  (df[!, :MedianAgeMarriage]) .-
-    mean_ma)/std(df[!, :MedianAgeMarriage]);
+scale!(df, [:MedianAgeMarriage])
 
 # Define the Stan language model
 
