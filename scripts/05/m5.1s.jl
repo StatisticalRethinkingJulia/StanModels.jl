@@ -1,4 +1,5 @@
 using StanSample, MCMCChains
+using StatisticalRethinking: scale!
 
 df = CSV.read(joinpath(@__DIR__, "..", "..", "data", "WaffleDivorce.csv"), 
     delim=';')

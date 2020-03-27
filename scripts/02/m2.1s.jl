@@ -1,4 +1,4 @@
-using StanSample, MCMCChains, Distributions
+using StanSample, Distributions, Statistics
 
 # Define the Stan language model
 
@@ -43,6 +43,6 @@ rc = stan_sample(m_2_1s, data=m2_1_data);
 # Describe the draws
 
 if success(rc)
-  chn = read_samples(m_2_1s; output_format=:mcmcchains)
-  describe(chn)
+  p = read_samples(m_2_1s; output_format=:particles)
+  p |> display
 end
