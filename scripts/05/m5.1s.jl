@@ -1,9 +1,7 @@
-using StanSample, MCMCChains
-using StatisticalRethinking: scale!
+using StanModels, StanSample, MCMCChains, CSV
 
-df = CSV.read(joinpath(@__DIR__, "..", "..", "data", "WaffleDivorce.csv"), 
-    delim=';')
-scale!(df, [:MedianAgeMarriage])
+df = CSV.read(stanmodels_path("..", "data", "WaffleDivorce.csv"), delim=';')
+StanModels.scale!(df, [:MedianAgeMarriage])
 
 # Define the Stan language model
 

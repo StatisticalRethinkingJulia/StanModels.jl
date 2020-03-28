@@ -18,6 +18,8 @@ stanmodels_path(parts...) = normpath(joinpath(stanmodels_src_path, parts...))
 
 using StanSample
 
+include("utils/scale.jl")
+
 export
   stanmodels_path
 
