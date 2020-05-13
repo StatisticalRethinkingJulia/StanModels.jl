@@ -6,8 +6,7 @@ const stanmodels_src_path = @__DIR__
 
 # stanmodels_path
 
-Relative path using the StaModels src/ directory. Copied from
-[DynamicHMCExamples.jl](https://github.com/tpapp/DynamicHMCExamples.jl)
+Relative path using the StanModels src/ directory. 
 
 ### Example to get access to the scripts subdirectory of StanModels
 ```julia
