@@ -32,6 +32,8 @@ rc = stan_sample(m_4_1s, data=m4_1_data);
 if success(rc)
   chn = read_samples(m_4_1s; output_format=:mcmcchains)
   # Update parameter names
-  chn = set_names(chn, Dict("mu" => "μ", "sigma" => "σ"))
-  describe(chn)
+  chn = replacenames(chn, Dict("mu" => "μ", "sigma" => "σ"))
+  chn |> display
 end
+
+# chn = Chains(val, ["a", "b", "c", "d", "e"])

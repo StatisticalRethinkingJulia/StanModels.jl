@@ -44,5 +44,5 @@ rc = stan_sample(m_2_1s, data=m2_1_data);
 
 if success(rc)
   p = read_samples(m_2_1s; output_format=:particles)
-  #p |> display
+  p |> display
 end

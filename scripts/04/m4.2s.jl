@@ -33,6 +33,6 @@ rc = stan_sample(m_4_2s, data=m4_2_data);
 
 if success(rc)
   chn = read_samples(m_4_2s; output_format=:mcmcchains)
-  chn = set_names(chn, Dict("mu" => "μ", "sigma" => "σ"))
+  chn = replacenames(chn, Dict("mu" => "μ", "sigma" => "σ"))
   describe(chn)
 end
