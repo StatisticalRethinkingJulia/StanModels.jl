@@ -1,7 +1,8 @@
-using StanSample, MCMCChains, CSV
+using StanModels, StanSample, MCMCChains, CSV
 
-df = filter(row -> row[:age] >= 18, 
-  CSV.read(joinpath(@__DIR__, "..", "..", "data", "Howell1.csv"), delim=';'))
+DataDir = stanmodels_path("..", "data", "exp_pro")
+df = DataFrame!(CSV.File(joinpath(DataDir, "Howell1.csv"), delim=';'))
+df = filter(row -> row[:age] >= 18, df)
 
 m4_1s = "
 // Inferring a Rate
@@ -30,10 +31,10 @@ m4_1_data = Dict("N" => length(df[!, :height]), "h" => df[!, :height]);
 rc = stan_sample(m_4_1s, data=m4_1_data);
 
 if success(rc)
+  stan_summary(m_4_1s, true)
   chn = read_samples(m_4_1s; output_format=:mcmcchains)
   # Update parameter names
   chn = replacenames(chn, Dict("mu" => "μ", "sigma" => "σ"))
   chn |> display
 end
-
-# chn = Chains(val, ["a", "b", "c", "d", "e"])
+]
