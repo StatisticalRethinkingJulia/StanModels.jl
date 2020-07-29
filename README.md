@@ -12,6 +12,17 @@ This package contains the [Stan](https://github.com/StanJulia) versions.
 
 ## Versions
 
+### v3.0.0
+
+- Initial release of project based version
+- Depends om StatisticalRethinking v3 (just resources, no mcmc dependencies)
+- All scripts originally in StatisticalRethinking will be moved here
+- Still contains all models (in the models subdirectory) 
+
+### v2.x
+
+- Just the models
+
 ### v1.0.1
 
 - Set upper bounds in [compat] section of Project.toml

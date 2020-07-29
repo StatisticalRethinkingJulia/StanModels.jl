@@ -5,6 +5,6 @@
 /docs/build
 Manifest.toml
 */*/tmp
-*/*/.ipynb_checkpoints
+notebooks/.ipynb_checkpoints
 .DS_Store
 tmp
