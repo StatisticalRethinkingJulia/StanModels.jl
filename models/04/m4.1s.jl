@@ -37,4 +37,4 @@ if success(rc)
   chn = replacenames(chn, Dict("mu" => "μ", "sigma" => "σ"))
   chn |> display
 end
-]
+plot(chn)
