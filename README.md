@@ -44,7 +44,7 @@ This package contains the [Stan](https://github.com/StanJulia) versions.
 
 Question and contributions are very welcome, as are feature requests and suggestions. Please open an [issue][issues-url] if you encounter any problems or have a question.
 
-[travis-img]: https://travis-ci.org/StatisticalRethinkingJulia/StanModels.jl.svg?branch=master
-[travis-url]: https://travis-ci.org/StatisticalRethinkingJulia/StanModels.jl
+[travis-img]: https://travis-ci.com/StatisticalRethinkingJulia/StanModels.jl.svg?branch=master
+[travis-url]: https://travis-ci.com/StatisticalRethinkingJulia/StanModels.jl
 
 [issues-url]: https://github.com/StatisticalRethinkingJulia/StanModels.jl/issues
