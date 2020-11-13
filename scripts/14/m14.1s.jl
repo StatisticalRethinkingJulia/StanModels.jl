@@ -2,7 +2,7 @@ using StanSample, MCMCChains, CSV, Statistics
 
 # Model written by Scott Spencer
 
-df = CSV.read(joinpath(@__DIR__, "..", "..", "data", "WaffleDivorce.csv"), delim=';')
+df = CSV.read(joinpath(@__DIR__, "..", "..", "data", "WaffleDivorce.csv"), DataFrame)
 mean_ma = mean(df[!, :MedianAgeMarriage])
 df[!, :MedianAgeMarriage_s] = 
   convert(Vector{Float64},  (df[!, :MedianAgeMarriage]) .-

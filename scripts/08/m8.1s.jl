@@ -3,7 +3,7 @@
 using StanSample, MCMCChains, CSV
 
 df = convert(DataFrame, 
-  CSV.read(joinpath(@__DIR__, "..", "..", "data", "rugged.csv"), delim=';'));
+  CSV.read(joinpath(@__DIR__, "..", "..", "data", "rugged.csv"), DataFrame));
 
 dcc = filter(row -> !(ismissing(row[:rgdppc_2000])), df)
 dcc[!, :log_gdp] = log.(dcc[!, :rgdppc_2000])

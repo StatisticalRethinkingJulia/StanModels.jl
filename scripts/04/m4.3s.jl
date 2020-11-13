@@ -1,7 +1,7 @@
 using StanSample, MCMCChains, CSV
 
 df = filter(row -> row[:age] >= 18, 
-  CSV.read(joinpath(@__DIR__, "..", "..", "data", "Howell1.csv"), delim=';'))
+  CSV.read(joinpath(@__DIR__, "..", "..", "data", "Howell1.csv"), DataFrame))
 
 # Define the Stan language model
 

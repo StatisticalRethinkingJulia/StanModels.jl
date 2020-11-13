@@ -1,6 +1,6 @@
 using StanSample, MCMCChains, CSV
 
-df = CSV.read(joinpath(@__DIR__, "..",  "..", "data",  "Kline.csv"), delim=';');
+df = CSV.read(joinpath(@__DIR__, "..",  "..", "data",  "Kline.csv"), DataFrame);
 
 # New col log_pop, set log() for population data
 df[!, :log_pop] = map((x) -> log(x), df[!, :population]);

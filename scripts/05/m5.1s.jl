@@ -1,6 +1,6 @@
 using StanModels, StanSample, MCMCChains, CSV
 
-df = CSV.read(stanmodels_path("..", "data", "WaffleDivorce.csv"), delim=';')
+df = CSV.read(stanmodels_path("..", "data", "WaffleDivorce.csv"), DataFrame)
 StanModels.scale!(df, [:MedianAgeMarriage])
 
 # Define the Stan language model

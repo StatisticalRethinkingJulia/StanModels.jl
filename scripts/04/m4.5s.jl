@@ -1,7 +1,7 @@
 using StanSample, MCMCChains, CSV
 
 df = filter(row -> row[:age] >= 18, 
-  CSV.read(joinpath(@__DIR__, "..", "..", "data", "Howell1.csv"), delim=';'))
+  CSV.read(joinpath(@__DIR__, "..", "..", "data", "Howell1.csv"), DataFrame))
 df[!, :weight_s] = (df[!, :weight] .- mean(df[!, :weight])) / std(df[!, :weight]);
 df[!, :weight_s2] = df[!, :weight_s] .^ 2;
 

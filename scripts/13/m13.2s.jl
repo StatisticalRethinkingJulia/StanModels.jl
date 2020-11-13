@@ -1,6 +1,6 @@
 using StanSample, MCMCChains, CSV
 
-df = CSV.read(joinpath(@__DIR__, "..", "..", "data", "UCBadmit.csv"), delim=';');
+df = CSV.read(joinpath(@__DIR__, "..", "..", "data", "UCBadmit.csv"), DataFrame);
 
 # Preprocess data
 

@@ -1,6 +1,6 @@
 using StanSample, MCMCChains, CSV
 
-df = CSV.read(joinpath(@__DIR__, "..", "..", "data", "WaffleDivorce.csv"), delim=';')
+df = CSV.read(joinpath(@__DIR__, "..", "..", "data", "WaffleDivorce.csv"), DataFrame)
 mean_ma = mean(df[!, :Marriage])
 df[!, :Marriage_s] = convert(Vector{Float64},
   (df[!, :Marriage]) .- mean_ma)/std(df[!, :Marriage]);

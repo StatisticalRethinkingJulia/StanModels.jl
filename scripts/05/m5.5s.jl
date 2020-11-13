@@ -1,6 +1,6 @@
 using StanSample, MCMCChains, CSV
 
-df = CSV.read(joinpath(@__DIR__, "..", "..", "data", "milk.csv"), delim=';')
+df = CSV.read(joinpath(@__DIR__, "..", "..", "data", "milk.csv"), DataFrame)
 dcc = filter(row -> !(row[:neocortex_perc] == "NA"), df)
 dcc[!, :kcal_per_g] = convert(Vector{Float64}, dcc[!, :kcal_per_g])
 dcc[!, :neocortex_perc] = parse.(Float64, dcc[!, :neocortex_perc])

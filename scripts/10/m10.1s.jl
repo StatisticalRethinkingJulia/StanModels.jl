@@ -1,6 +1,6 @@
 using StanSample, MCMCChains, CSV
 
-df = CSV.read(joinpath(@__DIR__, "..", "..", "data", "chimpanzees.csv"), delim=';');
+df = CSV.read(joinpath(@__DIR__, "..", "..", "data", "chimpanzees.csv"), DataFrame);
 
 # Define the Stan language model
 
