@@ -5,7 +5,6 @@ version = "2.1.5"
 
 [deps]
 CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
-CmdStan = "593b3428-ca2f-500c-ae53-031589ec8ddd"
 DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
 Distributions = "31c24e10-a181-5473-b8eb-7969acd0382f"
 Formatting = "59287772-0a20-5a39-b81b-1366585eb4c0"
@@ -16,7 +15,6 @@ Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [compat]
 CSV = "0.5, 0.6, 0.7, 0.8"
-CmdStan = "6.1"
 DataFrames = "0.20, 0.21, 0.22"
 Distributions = "0.22, 0.23, 0.24"
 Formatting = "0.4"
